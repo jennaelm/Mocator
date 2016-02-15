@@ -1,0 +1,308 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B61E76601C719ADE00539B42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E765F1C719ADE00539B42 /* AppDelegate.swift */; };
+		B61E76621C719ADE00539B42 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76611C719ADE00539B42 /* ViewController.swift */; };
+		B61E76651C719ADE00539B42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61E76631C719ADE00539B42 /* Main.storyboard */; };
+		B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B61E76661C719ADE00539B42 /* Mocator.xcdatamodeld */; };
+		B61E766A1C719ADE00539B42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B61E76691C719ADE00539B42 /* Assets.xcassets */; };
+		B61E766D1C719ADE00539B42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61E766B1C719ADE00539B42 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B61E765C1C719ADE00539B42 /* Mocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B61E765F1C719ADE00539B42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B61E76611C719ADE00539B42 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		B61E76641C719ADE00539B42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B61E76671C719ADE00539B42 /* Mocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mocator.xcdatamodel; sourceTree = "<group>"; };
+		B61E76691C719ADE00539B42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B61E766C1C719ADE00539B42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B61E766E1C719ADE00539B42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B61E76591C719ADE00539B42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B61E76531C719ADE00539B42 = {
+			isa = PBXGroup;
+			children = (
+				B61E765E1C719ADE00539B42 /* Mocator */,
+				B61E765D1C719ADE00539B42 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B61E765D1C719ADE00539B42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B61E765C1C719ADE00539B42 /* Mocator.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B61E765E1C719ADE00539B42 /* Mocator */ = {
+			isa = PBXGroup;
+			children = (
+				B61E765F1C719ADE00539B42 /* AppDelegate.swift */,
+				B61E76611C719ADE00539B42 /* ViewController.swift */,
+				B61E76631C719ADE00539B42 /* Main.storyboard */,
+				B61E76691C719ADE00539B42 /* Assets.xcassets */,
+				B61E766B1C719ADE00539B42 /* LaunchScreen.storyboard */,
+				B61E766E1C719ADE00539B42 /* Info.plist */,
+				B61E76661C719ADE00539B42 /* Mocator.xcdatamodeld */,
+			);
+			path = Mocator;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B61E765B1C719ADE00539B42 /* Mocator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B61E76711C719ADE00539B42 /* Build configuration list for PBXNativeTarget "Mocator" */;
+			buildPhases = (
+				B61E76581C719ADE00539B42 /* Sources */,
+				B61E76591C719ADE00539B42 /* Frameworks */,
+				B61E765A1C719ADE00539B42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Mocator;
+			productName = Mocator;
+			productReference = B61E765C1C719ADE00539B42 /* Mocator.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B61E76541C719ADE00539B42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Jenna Miller";
+				TargetAttributes = {
+					B61E765B1C719ADE00539B42 = {
+						CreatedOnToolsVersion = 7.2.1;
+					};
+				};
+			};
+			buildConfigurationList = B61E76571C719ADE00539B42 /* Build configuration list for PBXProject "Mocator" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B61E76531C719ADE00539B42;
+			productRefGroup = B61E765D1C719ADE00539B42 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B61E765B1C719ADE00539B42 /* Mocator */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B61E765A1C719ADE00539B42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B61E766D1C719ADE00539B42 /* LaunchScreen.storyboard in Resources */,
+				B61E766A1C719ADE00539B42 /* Assets.xcassets in Resources */,
+				B61E76651C719ADE00539B42 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B61E76581C719ADE00539B42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B61E76621C719ADE00539B42 /* ViewController.swift in Sources */,
+				B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */,
+				B61E76601C719ADE00539B42 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B61E76631C719ADE00539B42 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B61E76641C719ADE00539B42 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B61E766B1C719ADE00539B42 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B61E766C1C719ADE00539B42 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B61E766F1C719ADE00539B42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		B61E76701C719ADE00539B42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B61E76721C719ADE00539B42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Mocator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.projects.jenna.Mocator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B61E76731C719ADE00539B42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Mocator/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.projects.jenna.Mocator;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B61E76571C719ADE00539B42 /* Build configuration list for PBXProject "Mocator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B61E766F1C719ADE00539B42 /* Debug */,
+				B61E76701C719ADE00539B42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B61E76711C719ADE00539B42 /* Build configuration list for PBXNativeTarget "Mocator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B61E76721C719ADE00539B42 /* Debug */,
+				B61E76731C719ADE00539B42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B61E76661C719ADE00539B42 /* Mocator.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B61E76671C719ADE00539B42 /* Mocator.xcdatamodel */,
+			);
+			currentVersion = B61E76671C719ADE00539B42 /* Mocator.xcdatamodel */;
+			path = Mocator.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B61E76541C719ADE00539B42 /* Project object */;
+}
