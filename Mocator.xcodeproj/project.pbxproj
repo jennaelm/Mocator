@@ -8,22 +8,73 @@
 
 /* Begin PBXBuildFile section */
 		B61E76601C719ADE00539B42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E765F1C719ADE00539B42 /* AppDelegate.swift */; };
-		B61E76621C719ADE00539B42 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76611C719ADE00539B42 /* ViewController.swift */; };
 		B61E76651C719ADE00539B42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61E76631C719ADE00539B42 /* Main.storyboard */; };
 		B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B61E76661C719ADE00539B42 /* Mocator.xcdatamodeld */; };
 		B61E766A1C719ADE00539B42 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B61E76691C719ADE00539B42 /* Assets.xcassets */; };
 		B61E766D1C719ADE00539B42 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61E766B1C719ADE00539B42 /* LaunchScreen.storyboard */; };
+		B61E76761C719C4800539B42 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61E76751C719C4800539B42 /* CloudKit.framework */; };
+		B61E76781C71D17200539B42 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76771C71D17200539B42 /* LoginViewController.swift */; };
+		B61E76831C71D2FA00539B42 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61E76801C71D2FA00539B42 /* FBSDKCoreKit.framework */; };
+		B61E76841C71D2FA00539B42 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61E76811C71D2FA00539B42 /* FBSDKLoginKit.framework */; };
+		B61E76851C71D2FA00539B42 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B61E76821C71D2FA00539B42 /* FBSDKShareKit.framework */; };
+		B61E76881C71D7B700539B42 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B61E76871C71D7B700539B42 /* SWRevealViewController.m */; };
+		B61E768E1C71EEBB00539B42 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E768D1C71EEBB00539B42 /* ChatListViewController.swift */; };
+		B61E76921C71EF2100539B42 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76911C71EF2100539B42 /* BrowseViewController.swift */; };
+		B61E76941C72398900539B42 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76931C72398900539B42 /* ImageCollectionViewCell.swift */; };
+		B61E76C41C746A2500539B42 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C31C746A2500539B42 /* Model.swift */; };
+		B61E76C61C74752A00539B42 /* Mormon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C51C74752A00539B42 /* Mormon.swift */; };
+		B61E76C81C7476E900539B42 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C71C7476E900539B42 /* UserInfo.swift */; };
+		B61E76CC1C749CB800539B42 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76CB1C749CB800539B42 /* MenuTableViewController.swift */; };
+		B61E76D01C74A07400539B42 /* DiscoveryPreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76CF1C74A07400539B42 /* DiscoveryPreferencesViewController.swift */; };
+		B61E76D41C74ACE100539B42 /* DetailMormonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */; };
+		B61E76D61C74AF9600539B42 /* ViewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76D51C74AF9600539B42 /* ViewProfileViewController.swift */; };
+		B61E76D81C762D1700539B42 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76D71C762D1700539B42 /* EditProfileViewController.swift */; };
+		B66EA9741CB2CC690021D55A /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9731CB2CC690021D55A /* SettingButton.swift */; };
+		B66EA9771CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */; };
+		B66EA9781CB47DAA0021D55A /* FacebookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */; };
+		B66EA97C1CB574DB0021D55A /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */; };
+		B66EA9801CB57E0E0021D55A /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA97F1CB57E0E0021D55A /* CustomImageFlowLayout.swift */; };
+		B66EA9821CB5B0A00021D55A /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9811CB5B0A00021D55A /* HelpTableViewController.swift */; };
+		CC4BC89B86037D72B54813DC /* libPods-Mocator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7AC66A4D26AF860BF69DDB99 /* Pods-Mocator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocator.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mocator/Pods-Mocator.release.xcconfig"; sourceTree = "<group>"; };
+		8116E8E171DDF077E1075CE0 /* Pods-Mocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mocator/Pods-Mocator.debug.xcconfig"; sourceTree = "<group>"; };
+		B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mocator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61E765C1C719ADE00539B42 /* Mocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61E765F1C719ADE00539B42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B61E76611C719ADE00539B42 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B61E76641C719ADE00539B42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B61E76671C719ADE00539B42 /* Mocator.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Mocator.xcdatamodel; sourceTree = "<group>"; };
 		B61E76691C719ADE00539B42 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B61E766C1C719ADE00539B42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B61E766E1C719ADE00539B42 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B61E76741C719C2C00539B42 /* Mocator.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = Mocator.entitlements; sourceTree = "<group>"; };
+		B61E76751C719C4800539B42 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		B61E76771C71D17200539B42 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		B61E767F1C71D1FA00539B42 /* Mocator-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Mocator-Bridging-Header.h"; sourceTree = "<group>"; };
+		B61E76801C71D2FA00539B42 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = "FacebookSDKs-iOS-20151111/FBSDKCoreKit.framework"; sourceTree = "<group>"; };
+		B61E76811C71D2FA00539B42 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = "FacebookSDKs-iOS-20151111/FBSDKLoginKit.framework"; sourceTree = "<group>"; };
+		B61E76821C71D2FA00539B42 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = "FacebookSDKs-iOS-20151111/FBSDKShareKit.framework"; sourceTree = "<group>"; };
+		B61E76861C71D7B700539B42 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master-2/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
+		B61E76871C71D7B700539B42 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SWRevealViewController-master-2/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
+		B61E768D1C71EEBB00539B42 /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
+		B61E76911C71EF2100539B42 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
+		B61E76931C72398900539B42 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		B61E76C31C746A2500539B42 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B61E76C51C74752A00539B42 /* Mormon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mormon.swift; sourceTree = "<group>"; };
+		B61E76C71C7476E900539B42 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		B61E76CB1C749CB800539B42 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
+		B61E76CF1C74A07400539B42 /* DiscoveryPreferencesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryPreferencesViewController.swift; sourceTree = "<group>"; };
+		B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMormonViewController.swift; sourceTree = "<group>"; };
+		B61E76D51C74AF9600539B42 /* ViewProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProfileViewController.swift; sourceTree = "<group>"; };
+		B61E76D71C762D1700539B42 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		B66EA9731CB2CC690021D55A /* SettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
+		B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FacebookInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookInfo.swift; sourceTree = "<group>"; };
+		B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
+		B66EA97F1CB57E0E0021D55A /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
+		B66EA9811CB5B0A00021D55A /* HelpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +82,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B61E76831C71D2FA00539B42 /* FBSDKCoreKit.framework in Frameworks */,
+				B61E76841C71D2FA00539B42 /* FBSDKLoginKit.framework in Frameworks */,
+				B61E76851C71D2FA00539B42 /* FBSDKShareKit.framework in Frameworks */,
+				B61E76761C719C4800539B42 /* CloudKit.framework in Frameworks */,
+				CC4BC89B86037D72B54813DC /* libPods-Mocator.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9A7AF81391E7A98E71BBBDAD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B61E76531C719ADE00539B42 = {
 			isa = PBXGroup;
 			children = (
+				B61E76801C71D2FA00539B42 /* FBSDKCoreKit.framework */,
+				B61E76811C71D2FA00539B42 /* FBSDKLoginKit.framework */,
+				B61E76821C71D2FA00539B42 /* FBSDKShareKit.framework */,
+				B61E767F1C71D1FA00539B42 /* Mocator-Bridging-Header.h */,
+				B61E76751C719C4800539B42 /* CloudKit.framework */,
 				B61E765E1C719ADE00539B42 /* Mocator */,
 				B61E765D1C719ADE00539B42 /* Products */,
+				F1454896B437A4702945FF6F /* Pods */,
+				9A7AF81391E7A98E71BBBDAD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,14 +128,60 @@
 			isa = PBXGroup;
 			children = (
 				B61E765F1C719ADE00539B42 /* AppDelegate.swift */,
-				B61E76611C719ADE00539B42 /* ViewController.swift */,
-				B61E76631C719ADE00539B42 /* Main.storyboard */,
+				B61E76911C71EF2100539B42 /* BrowseViewController.swift */,
+				B61E768D1C71EEBB00539B42 /* ChatListViewController.swift */,
+				B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */,
+				B61E76CF1C74A07400539B42 /* DiscoveryPreferencesViewController.swift */,
+				B61E76D71C762D1700539B42 /* EditProfileViewController.swift */,
+				B66EA9811CB5B0A00021D55A /* HelpTableViewController.swift */,
+				B61E76771C71D17200539B42 /* LoginViewController.swift */,
+				B61E76CB1C749CB800539B42 /* MenuTableViewController.swift */,
+				B61E76D51C74AF9600539B42 /* ViewProfileViewController.swift */,
+				B66EA9721CB2CBF30021D55A /* View */,
+				B61E76C01C74696A00539B42 /* Model */,
 				B61E76691C719ADE00539B42 /* Assets.xcassets */,
 				B61E766B1C719ADE00539B42 /* LaunchScreen.storyboard */,
-				B61E766E1C719ADE00539B42 /* Info.plist */,
+				B61E76861C71D7B700539B42 /* SWRevealViewController.h */,
+				B61E76871C71D7B700539B42 /* SWRevealViewController.m */,
 				B61E76661C719ADE00539B42 /* Mocator.xcdatamodeld */,
+				B61E76741C719C2C00539B42 /* Mocator.entitlements */,
+				B61E766E1C719ADE00539B42 /* Info.plist */,
 			);
 			path = Mocator;
+			sourceTree = "<group>";
+		};
+		B61E76C01C74696A00539B42 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */,
+				B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */,
+				B61E76C31C746A2500539B42 /* Model.swift */,
+				B61E76C51C74752A00539B42 /* Mormon.swift */,
+				B61E76C71C7476E900539B42 /* UserInfo.swift */,
+			);
+			name = Model;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		B66EA9721CB2CBF30021D55A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B61E76631C719ADE00539B42 /* Main.storyboard */,
+				B66EA97F1CB57E0E0021D55A /* CustomImageFlowLayout.swift */,
+				B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */,
+				B61E76931C72398900539B42 /* ImageCollectionViewCell.swift */,
+				B66EA9731CB2CC690021D55A /* SettingButton.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		F1454896B437A4702945FF6F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8116E8E171DDF077E1075CE0 /* Pods-Mocator.debug.xcconfig */,
+				7AC66A4D26AF860BF69DDB99 /* Pods-Mocator.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +191,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B61E76711C719ADE00539B42 /* Build configuration list for PBXNativeTarget "Mocator" */;
 			buildPhases = (
+				9F2A54C430A79F3B5F3A5EAA /* Check Pods Manifest.lock */,
 				B61E76581C719ADE00539B42 /* Sources */,
 				B61E76591C719ADE00539B42 /* Frameworks */,
 				B61E765A1C719ADE00539B42 /* Resources */,
+				9F7292CBCD06170752F52354 /* Embed Pods Frameworks */,
+				625DB6095491E5B9991B971D /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -99,6 +219,12 @@
 				TargetAttributes = {
 					B61E765B1C719ADE00539B42 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = J7RC77R7KS;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -133,14 +259,80 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		625DB6095491E5B9991B971D /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mocator/Pods-Mocator-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9F2A54C430A79F3B5F3A5EAA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		9F7292CBCD06170752F52354 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Mocator/Pods-Mocator-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		B61E76581C719ADE00539B42 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B61E76621C719ADE00539B42 /* ViewController.swift in Sources */,
+				B61E76D81C762D1700539B42 /* EditProfileViewController.swift in Sources */,
+				B66EA9781CB47DAA0021D55A /* FacebookInfo.swift in Sources */,
+				B61E76C61C74752A00539B42 /* Mormon.swift in Sources */,
+				B61E76C41C746A2500539B42 /* Model.swift in Sources */,
+				B61E768E1C71EEBB00539B42 /* ChatListViewController.swift in Sources */,
+				B61E76781C71D17200539B42 /* LoginViewController.swift in Sources */,
 				B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */,
+				B66EA9741CB2CC690021D55A /* SettingButton.swift in Sources */,
+				B66EA9821CB5B0A00021D55A /* HelpTableViewController.swift in Sources */,
+				B61E76D41C74ACE100539B42 /* DetailMormonViewController.swift in Sources */,
 				B61E76601C719ADE00539B42 /* AppDelegate.swift in Sources */,
+				B61E76881C71D7B700539B42 /* SWRevealViewController.m in Sources */,
+				B61E76CC1C749CB800539B42 /* MenuTableViewController.swift in Sources */,
+				B61E76D01C74A07400539B42 /* DiscoveryPreferencesViewController.swift in Sources */,
+				B66EA9771CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift in Sources */,
+				B66EA9801CB57E0E0021D55A /* CustomImageFlowLayout.swift in Sources */,
+				B61E76921C71EF2100539B42 /* BrowseViewController.swift in Sources */,
+				B66EA97C1CB574DB0021D55A /* RoundedImageView.swift in Sources */,
+				B61E76C81C7476E900539B42 /* UserInfo.swift in Sources */,
+				B61E76D61C74AF9600539B42 /* ViewProfileViewController.swift in Sources */,
+				B61E76941C72398900539B42 /* ImageCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,23 +441,43 @@
 		};
 		B61E76721C719ADE00539B42 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8116E8E171DDF077E1075CE0 /* Pods-Mocator.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mocator/Mocator.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-20151111",
+				);
 				INFOPLIST_FILE = Mocator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.projects.jenna.Mocator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Mocator-Bridging-Header.h";
 			};
 			name = Debug;
 		};
 		B61E76731C719ADE00539B42 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7AC66A4D26AF860BF69DDB99 /* Pods-Mocator.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Mocator/Mocator.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/FacebookSDKs-iOS-20151111",
+				);
 				INFOPLIST_FILE = Mocator/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.projects.jenna.Mocator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Mocator-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -288,6 +500,7 @@
 				B61E76731C719ADE00539B42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
