@@ -13,26 +13,76 @@ class ViewProfileViewController: UIViewController {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var imageView: UIImageView!
-    
-    var profPicString : String?
+    @IBOutlet weak var imageViewTwo: UIImageView!
+    @IBOutlet weak var imageViewThree: UIImageView!
+    @IBOutlet weak var imageViewFour: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
+
+    var imageData : NSData?
+    var mormonDescription : String?
+    var mormonName = ""
+    var imgViewArray = [UIImageView]()
+    var profileImages = [UIImage]()
+    var swipePosition = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-    // Go be free
+        // Go be free
         
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-        }
-        
+        setUpRevealController()
         fetchFromCoreData()
         
+        self.imgViewArray = [imageView, imageViewTwo, imageViewThree, imageViewFour]
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewProfileViewController.swiped(_:)))
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.imageView.addGestureRecognizer(swipeRight)
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(ViewProfileViewController.swiped(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizerDirection.Left
+        self.imageView.addGestureRecognizer(swipeLeft)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        fetchFromCoreData()
+    }
+    
+    
+    func swiped(gesture: UISwipeGestureRecognizer) {
+        if let swipeGesture = gesture as UISwipeGestureRecognizer? {
+            switch swipeGesture.direction {
+            case UISwipeGestureRecognizerDirection.Right :
+                if self.swipePosition <= 0 {
+                    // do nothing
+                } else {
+                    self.swipePosition = self.swipePosition - 1
+                    print(self.swipePosition)
+                    self.imageView.image = self.profileImages[self.swipePosition]
+                }
+            case UISwipeGestureRecognizerDirection.Left :
+                print("profile image count: \(self.profileImages.count)")
+                if self.swipePosition < self.profileImages.count - 1 {
+                    self.swipePosition = self.swipePosition + 1
+                    print(self.swipePosition)
+                    self.imageView.image = self.profileImages[self.swipePosition]
+                } else {
+                    // do nothing
+                }
+            default :
+                break
+            }
+        }
+    }
+    
+    func setUpRevealController() {
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+        }
     }
     
     func fetchFromCoreData() {
-        print("startedFetching")
         let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
         let request = NSFetchRequest(entityName: "FacebookInfo")
         var results : [AnyObject]?
@@ -49,34 +99,60 @@ class ViewProfileViewController: UIViewController {
             let infoFetched = results as? [FacebookInfo]!
             
             for person in infoFetched! {
+                self.mormonName = person.firstName!
+                self.imageData = person.profilePhotos
                 
-                self.profPicString = person.imageString
+                if person.userDescription != nil {
+                    self.mormonDescription = person.userDescription
+                }
                 
-           
+                dataToImages()
             }
-            
-        }else {
+        } else {
             print("results are nil")
-           
         }
-        loadProfileImage()
+        updateView()
     }
     
-    func loadProfileImage() {
+    func dataToImages() {
+        let mySavedData = NSKeyedUnarchiver.unarchiveObjectWithData(self.imageData!) as! NSMutableArray?
+        self.profileImages = []
+        for each in mySavedData! {
+            let profileData = each as! NSData
+            let profileImage = UIImage(data: profileData)
+            self.profileImages.append(profileImage!)
+        }
+    }
+    
+    func updateView() {
         dispatch_async(dispatch_get_main_queue(), {
+            self.nameLabel.text = self.mormonName
+            var index = 0
+            for imgView in self.imgViewArray {
+                if self.profileImages.count > index {
+                    imgView.image = self.profileImages[index]
+                    index = index + 1
+                }
+            }
             
-            print("string: \(self.profPicString)")
-            
-            if self.profPicString != nil {
-                let imgURL = NSURL(string: self.profPicString!)! as NSURL
-                print("print: \(imgURL)")
-                
-                let imageData = NSData(contentsOfURL: imgURL)
-                let profileImage = UIImage(data: imageData!)
-                
-                self.imageView.image = profileImage
+            if self.mormonDescription != nil {
+                self.descriptionLabel!.text = self.mormonDescription
             }
         })
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toEditSegue" {
+            let editViewController = segue.destinationViewController as! EditProfileViewController
+            
+            if self.mormonDescription != nil {
+                editViewController.userDescription = self.mormonDescription
+            }
+            
+            if profileImages.count > 0 {
+                editViewController.profileImages = self.profileImages
+            }
+        }
     }
 
 }

@@ -16,7 +16,10 @@ extension FacebookInfo {
 
     @NSManaged var firstName: String?
     @NSManaged var lastName: String?
-    @NSManaged var imageString: String?
     @NSManaged var profileURL: String?
-
+    @NSManaged var profilePhotos: NSData?
+    @NSManaged var gender: String?
+    @NSManaged var userID: String?
+    @NSManaged var userDescription: String?
 }
+

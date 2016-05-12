@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="14F1713" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Automatic">
+    <entity name="ChatBuddy" representedClassName=".ChatBuddy" syncable="YES">
+        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="lastMessageDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
     <entity name="FacebookInfo" representedClassName=".FacebookInfo" syncable="YES">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="gender" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profilePhotos" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="profileURL" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName=".Message" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="recipientID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="senderID" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="text" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="FacebookInfo" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="ChatBuddy" positionX="-63" positionY="36" width="128" height="105"/>
+        <element name="FacebookInfo" positionX="-63" positionY="-18" width="128" height="150"/>
+        <element name="Message" positionX="-63" positionY="27" width="128" height="105"/>
     </elements>
 </model>

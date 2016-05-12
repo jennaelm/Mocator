@@ -13,5 +13,8 @@
 #import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import "SWRevealViewController.h"
+#import "JSQMessagesViewController.h"
+#import "JSQMessages.h"
+#import "JSQMessagesBubbleImage.h"
 
 #endif /* Mocator_Bridging_Header_h */

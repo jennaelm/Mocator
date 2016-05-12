@@ -10,18 +10,18 @@ import UIKit
 
 class SettingButton: UIButton {
     
-    var isChecked : Bool = true {
+    var isChecked : Bool? {
         didSet{
             if isChecked == true {
-                self.backgroundColor = UIColor.grayColor()
-            } else {
                 self.backgroundColor = UIColor.orangeColor()
+            } else {
+                self.backgroundColor = UIColor.grayColor()
             }
         }
     }
 
     override func awakeFromNib() {
-        self.addTarget(self, action: "buttonTapped:", forControlEvents: UIControlEvents.TouchUpInside)
+        self.addTarget(self, action: #selector(SettingButton.buttonTapped(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         self.isChecked = true
     }
     

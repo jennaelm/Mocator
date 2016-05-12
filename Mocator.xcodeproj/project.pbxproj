@@ -35,6 +35,13 @@
 		B66EA97C1CB574DB0021D55A /* RoundedImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */; };
 		B66EA9801CB57E0E0021D55A /* CustomImageFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA97F1CB57E0E0021D55A /* CustomImageFlowLayout.swift */; };
 		B66EA9821CB5B0A00021D55A /* HelpTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9811CB5B0A00021D55A /* HelpTableViewController.swift */; };
+		B67129B31CBC1C500068D3BF /* DiscoveryPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67129B21CBC1C500068D3BF /* DiscoveryPreferences.swift */; };
+		B67129BA1CC035AF0068D3BF /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67129B81CC035AF0068D3BF /* Message+CoreDataProperties.swift */; };
+		B67129BB1CC035AF0068D3BF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67129B91CC035AF0068D3BF /* Message.swift */; };
+		B690A1B31CB6C10000BBBC9E /* ChatUpMormonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690A1B21CB6C0FF00BBBC9E /* ChatUpMormonViewController.swift */; };
+		B690A1B51CB6D02900BBBC9E /* MessagePlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690A1B41CB6D02900BBBC9E /* MessagePlainObject.swift */; };
+		B6DC68791CC7124600251EFC /* ChatBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC68781CC7124600251EFC /* ChatBuddy.swift */; };
+		B6DC687B1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC687A1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift */; };
 		CC4BC89B86037D72B54813DC /* libPods-Mocator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +82,13 @@
 		B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedImageView.swift; sourceTree = "<group>"; };
 		B66EA97F1CB57E0E0021D55A /* CustomImageFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomImageFlowLayout.swift; sourceTree = "<group>"; };
 		B66EA9811CB5B0A00021D55A /* HelpTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpTableViewController.swift; sourceTree = "<group>"; };
+		B67129B21CBC1C500068D3BF /* DiscoveryPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryPreferences.swift; sourceTree = "<group>"; };
+		B67129B81CC035AF0068D3BF /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B67129B91CC035AF0068D3BF /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		B690A1B21CB6C0FF00BBBC9E /* ChatUpMormonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatUpMormonViewController.swift; sourceTree = "<group>"; };
+		B690A1B41CB6D02900BBBC9E /* MessagePlainObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePlainObject.swift; sourceTree = "<group>"; };
+		B6DC68781CC7124600251EFC /* ChatBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBuddy.swift; sourceTree = "<group>"; };
+		B6DC687A1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatBuddy+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,6 +144,7 @@
 				B61E765F1C719ADE00539B42 /* AppDelegate.swift */,
 				B61E76911C71EF2100539B42 /* BrowseViewController.swift */,
 				B61E768D1C71EEBB00539B42 /* ChatListViewController.swift */,
+				B690A1B21CB6C0FF00BBBC9E /* ChatUpMormonViewController.swift */,
 				B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */,
 				B61E76CF1C74A07400539B42 /* DiscoveryPreferencesViewController.swift */,
 				B61E76D71C762D1700539B42 /* EditProfileViewController.swift */,
@@ -153,9 +168,15 @@
 		B61E76C01C74696A00539B42 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B6DC68781CC7124600251EFC /* ChatBuddy.swift */,
+				B6DC687A1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift */,
+				B67129B21CBC1C500068D3BF /* DiscoveryPreferences.swift */,
 				B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */,
 				B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */,
+				B67129B91CC035AF0068D3BF /* Message.swift */,
+				B67129B81CC035AF0068D3BF /* Message+CoreDataProperties.swift */,
 				B61E76C31C746A2500539B42 /* Model.swift */,
+				B690A1B41CB6D02900BBBC9E /* MessagePlainObject.swift */,
 				B61E76C51C74752A00539B42 /* Mormon.swift */,
 				B61E76C71C7476E900539B42 /* UserInfo.swift */,
 			);
@@ -318,21 +339,28 @@
 				B61E76C41C746A2500539B42 /* Model.swift in Sources */,
 				B61E768E1C71EEBB00539B42 /* ChatListViewController.swift in Sources */,
 				B61E76781C71D17200539B42 /* LoginViewController.swift in Sources */,
+				B67129BA1CC035AF0068D3BF /* Message+CoreDataProperties.swift in Sources */,
 				B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */,
+				B67129B31CBC1C500068D3BF /* DiscoveryPreferences.swift in Sources */,
 				B66EA9741CB2CC690021D55A /* SettingButton.swift in Sources */,
 				B66EA9821CB5B0A00021D55A /* HelpTableViewController.swift in Sources */,
 				B61E76D41C74ACE100539B42 /* DetailMormonViewController.swift in Sources */,
+				B6DC687B1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift in Sources */,
 				B61E76601C719ADE00539B42 /* AppDelegate.swift in Sources */,
 				B61E76881C71D7B700539B42 /* SWRevealViewController.m in Sources */,
+				B6DC68791CC7124600251EFC /* ChatBuddy.swift in Sources */,
 				B61E76CC1C749CB800539B42 /* MenuTableViewController.swift in Sources */,
+				B690A1B51CB6D02900BBBC9E /* MessagePlainObject.swift in Sources */,
 				B61E76D01C74A07400539B42 /* DiscoveryPreferencesViewController.swift in Sources */,
 				B66EA9771CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift in Sources */,
 				B66EA9801CB57E0E0021D55A /* CustomImageFlowLayout.swift in Sources */,
 				B61E76921C71EF2100539B42 /* BrowseViewController.swift in Sources */,
+				B67129BB1CC035AF0068D3BF /* Message.swift in Sources */,
 				B66EA97C1CB574DB0021D55A /* RoundedImageView.swift in Sources */,
 				B61E76C81C7476E900539B42 /* UserInfo.swift in Sources */,
 				B61E76D61C74AF9600539B42 /* ViewProfileViewController.swift in Sources */,
 				B61E76941C72398900539B42 /* ImageCollectionViewCell.swift in Sources */,
+				B690A1B31CB6C10000BBBC9E /* ChatUpMormonViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

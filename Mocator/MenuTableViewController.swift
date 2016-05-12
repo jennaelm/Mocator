@@ -13,7 +13,7 @@ class MenuTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    // Go be free
+        // Go be free
     }
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
