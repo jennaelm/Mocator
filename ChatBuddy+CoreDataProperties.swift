@@ -15,7 +15,7 @@ import CoreData
 extension ChatBuddy {
 
     @NSManaged var userID: String?
-    @NSManaged var imageString: String?
+    @NSManaged var profilePhotos: NSData?
     @NSManaged var name: String?
     @NSManaged var lastMessageDate: NSDate?
 

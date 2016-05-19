@@ -53,9 +53,7 @@ class ViewProfileViewController: UIViewController {
         if let swipeGesture = gesture as UISwipeGestureRecognizer? {
             switch swipeGesture.direction {
             case UISwipeGestureRecognizerDirection.Right :
-                if self.swipePosition <= 0 {
-                    // do nothing
-                } else {
+                if self.swipePosition > 0 {
                     self.swipePosition = self.swipePosition - 1
                     print(self.swipePosition)
                     self.imageView.image = self.profileImages[self.swipePosition]

@@ -14,14 +14,17 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var collectionViewLayout: CustomImageFlowLayout!
     let publicDB = CKContainer.defaultContainer().publicCloudDatabase
     let model: Model = Model.sharedInstance()
-    var locationManager: CLLocationManager!
-    let refreshControl = UIRefreshControl()
+    let refresher = UIRefreshControl()
     
+    var collectionViewLayout: CustomImageFlowLayout!
+    var locationManager: CLLocationManager!
     var selectedMormon : Mormon?
     var discoveryPreferences : DiscoveryPreferences?
+    var location : CLLocation?
+    var genderPreferences : [String]?
+    var lookingForPreferences : [String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +33,7 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
         
         setUpRevealController()
         setupLocationManager()
+        
         self.locationManager.startUpdatingLocation()
         
         if let disPref = DiscoveryPreferences.loadSaved() {
@@ -38,31 +42,26 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
             setUpDiscoveryPreferences()
         }
         
-        self.collectionView.dataSource = self
-        self.collectionView.alwaysBounceVertical = true
-        self.collectionView.delegate = self
+        var refreshControl = UIRefreshControl()
+        refreshControl = refresher
         
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.addSubview(refreshControl)
+        self.collectionView.alwaysBounceVertical = true
         self.collectionViewLayout = CustomImageFlowLayout()
         self.collectionView.collectionViewLayout = collectionViewLayout
    
         self.model.delegate = self
-        //self.model.refresh()
-        //refreshControl.addTarget(model, action: Selector("refresh"), forControlEvents: .ValueChanged)
+        self.model.fetchSelfFromCoreData()
         
-        let genderTypes = self.discoveryPreferences!.returnArrayOfGenders()
-        let lookingForTypes = self.discoveryPreferences!.returnArrayOfTypes()
+        refresher.addTarget(self, action: #selector(BrowseViewController.refreshMormons), forControlEvents: .ValueChanged)
         
-        let location = CLLocation(latitude: 60, longitude: 60)
-            model.fetchPersons(location, radiusInMeters: 30000000, genders: genderTypes, lookingFor: lookingForTypes)
+        self.genderPreferences = self.discoveryPreferences!.returnArrayOfGenders()
+        self.lookingForPreferences = self.discoveryPreferences!.returnArrayOfTypes()
         
-        locationManager.stopUpdatingLocation()
-    }
-    
-    func setUpRevealController() {
-        if self.revealViewController() != nil {
-            menuButton.target = self.revealViewController()
-            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        if self.location != nil {
+            model.updateLocationInCloudKit(self.location!)
         }
     }
     
@@ -71,6 +70,16 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
             let detailMormonViewController = segue.destinationViewController as! DetailMormonViewController
             detailMormonViewController.detailMormon = self.selectedMormon
         }
+    }
+
+// Refreshing
+    
+    func refreshMormons() {
+        if self.location != nil {
+            model.updateLocationInCloudKit(self.location!)
+            model.fetchPersons(self.location!, radiusInMeters: 300000, genders: self.genderPreferences!, lookingFor: self.lookingForPreferences!)
+        }
+        refresher.endRefreshing()
     }
     
 // Discovery Preferences
@@ -111,11 +120,9 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        let genderTypes = self.discoveryPreferences!.returnArrayOfGenders()
-        let lookingForTypes = self.discoveryPreferences!.returnArrayOfTypes()
-        
         if let loc = locations.last as CLLocation? {
-            model.fetchPersons(loc, radiusInMeters: 30000000, genders: genderTypes, lookingFor: lookingForTypes)
+            self.location = loc
+            model.fetchPersons(self.location!, radiusInMeters: 30000000, genders: self.genderPreferences!, lookingFor: self.lookingForPreferences!)
             locationManager.stopUpdatingLocation()
         }
     }
@@ -123,12 +130,11 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
 // Model Delegate
     
     func modelUpdated() {
-        refreshControl.endRefreshing()
-        collectionView.reloadData()
+         self.collectionView.reloadData()
     }
     
     func errorUpdating(error: NSError) {
-       print("There was an error updating : \(error.localizedDescription)")
+       print("There was an error updating while browsing: \(error.localizedDescription)")
     }
     
 // Collection View DataSource and Delegate
@@ -153,9 +159,17 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
                 }
             }
         }
-        
         return cell
     }
+
+// Side Bar Menu
     
+    func setUpRevealController() {
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+        }
+    }
 
 }

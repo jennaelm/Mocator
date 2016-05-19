@@ -12,7 +12,7 @@ import CoreLocation
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationManagerDelegate {
     
-    var userName = ""
+    
     let loginView : FBSDKLoginButton = FBSDKLoginButton()
     let model : Model = Model.sharedInstance()
     
@@ -23,8 +23,9 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
     var userGender : String?
     var userID : String!
     var userLocation : CLLocation?
-    
+    var fbUserID : String?
     var locationManager : CLLocationManager!
+    var userName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,8 +84,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
             self.userLocation = locations[0]
             locationManager.stopUpdatingLocation()
         }
-        
-        
+ 
     }
     
     func generateCloudKitAlert() {
@@ -116,7 +116,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
             loginView.center = self.view.center
             loginView.readPermissions = ["public_profile", "user_likes"]
             loginView.delegate = self
-            
         }
     }
     
@@ -124,7 +123,6 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
 // Facebook
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) { dispatch_async(dispatch_get_main_queue()){
-        
         if ((error) != nil) {
             print("Error type: \(error.localizedDescription)")
         } else if result.isCancelled {
@@ -142,20 +140,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
     
     func getFacebookInformation() {
         let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters:["fields": "id, email, likes, first_name, last_name, link, gender"])
-        
-        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             
             if ((error) != nil) {
                 print("Error fetching facebook information: \(error.localizedDescription)")
                 // labor of love error handling
             } else {
-                let fbUserID = result.valueForKey("id") as! String
-                self.profilePicLink = "http://graph.facebook.com/\(fbUserID)/picture?type=large"
+                self.fbUserID = result.valueForKey("id") as? String
+                self.profilePicLink = "http://graph.facebook.com/\(self.fbUserID)/picture?type=large"
                 self.firstName = result.valueForKey("first_name") as? String
                 self.lastName = result.valueForKey("last_name") as? String
                 self.userLink = result.valueForKey("link") as! String
                 self.userGender = result.valueForKey("gender") as? String
-                self.userID = "M\(fbUserID)\(self.lastName!)"
+                self.userID = "M\(self.fbUserID)\(self.lastName!)"
                 
                 self.storeInCoreDataAndCloudKit()
             }
@@ -195,11 +192,11 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
             
             let genericLookingFor = ["friends", "dates"]
             
-            print("location: \(self.userLocation)")
+            if self.userLocation == nil {
+                self.userLocation = CLLocation(latitude: 37, longitude: 122)
+            }
             
-            self.userLocation = CLLocation(latitude: 50, longitude: 50)
-            
-            model.pushPersonToCloudKit(self.userID!, firstName: self.firstName!, lastName: self.lastName!, picString: self.profilePicLink!, profileLink: self.userLink!, gender: self.userGender!, lookingFor: genericLookingFor, location: self.userLocation!)
+            model.pushPersonToCloudKit(self.userID!, firstName: self.firstName!, lastName: self.lastName!, picString: self.profilePicLink!, fbID: self.fbUserID!, profileLink: self.userLink!, gender: self.userGender!, lookingFor: genericLookingFor, location: self.userLocation!)
                 
             do {
                 try context.save()

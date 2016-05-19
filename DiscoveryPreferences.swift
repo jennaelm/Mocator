@@ -45,7 +45,6 @@ class DiscoveryPreferences : NSObject, NSCoding {
         let friendsBool = aDecoder.decodeBoolForKey(PropertyKey.friendsKey)
         
         self.init(maleBool: maleBool, femaleBool: femaleBool, datesBool: datesBool, friendsBool: friendsBool)
-        
     }
     
     func save() {

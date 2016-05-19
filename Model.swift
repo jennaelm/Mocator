@@ -10,12 +10,14 @@ import Foundation
 import UIKit
 import CloudKit
 import CoreLocation
+import CoreData
 
 let PersonType = "Person"
 
-protocol ModelDelegate {
+@objc protocol ModelDelegate {
     func errorUpdating(error: NSError)
     func modelUpdated()
+    optional func newMessages()
 }
 
 class Model {
@@ -89,10 +91,17 @@ class Model {
                 predicateArray.append(typePredicate)
             }
         
+            let selfPredicate = NSPredicate(format: "NOT (UserID == %@)", self.meIDGlobal!)
+            predicateArray.append(selfPredicate)
+        
             self.predicate = NSCompoundPredicate(type: .AndPredicateType, subpredicates: predicateArray)
             let query = CKQuery(recordType: PersonType,
                 predicate: self.predicate!)
-            
+        
+           // let operation = CKQueryOperation(query: query)
+           //     operation.resultsLimit = 30
+            // To do: figure out how to paginate by using operation
+    
             self.publicDB.performQuery(query, inZoneWithID: nil) {
                 results, error in
                 if error != nil {
@@ -115,14 +124,23 @@ class Model {
             }
         }
     
-    func pushPersonToCloudKit(userID: String, firstName: String, lastName: String, picString: String, profileLink: String, gender: String, lookingFor: [String], location: CLLocation) {
+    func pushPersonToCloudKit(userID: String, firstName: String, lastName: String, picString: String, fbID: String, profileLink: String, gender: String, lookingFor: [String], location: CLLocation) {
+
         let mormonRecordID = CKRecordID(recordName: firstName + lastName + userID)
         let url = NSURL(string: picString)! as NSURL
+
         let imageData = NSData(contentsOfURL: url)
-        let image = UIImage(data: imageData!)
+        let nsUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(NSUUID().UUIDString+".dat")
         
+        do {
+            try imageData!.writeToURL(nsUrl, options: [])
+        } catch let e as NSError {
+            print("Error! \(e)");
+            return
+        }
+    
         var assetArray = [CKAsset]()
-        let asset = imageToAsset(image!)
+        let asset = CKAsset(fileURL: nsUrl)
         assetArray.append(asset)
         
         let mormonRecord = CKRecord(recordType: "Person", recordID: mormonRecordID)
@@ -134,23 +152,24 @@ class Model {
             mormonRecord["Location"] = location
             mormonRecord["LookingFor"] = lookingFor
             mormonRecord["UserID"] = userID
+            mormonRecord["FbID"] = fbID
  
             self.userGenderGlobal = gender
             self.meIDGlobal = userID
+        
+        subscribeToMessages()
         
         self.publicDB.saveRecord(mormonRecord, completionHandler: { (record, error) in
             if error != nil {
                 print("error: \(error?.localizedDescription)")
                 // labor of love error handling
             } else {
-                print("Person saved successfully")
+               
             }
         })
     }
     
-    func updatePersonInCloudKit(description: String?, photos: [CKAsset]) {
-        print("me id: \(self.meIDGlobal!)")
-        
+    func updateLocationInCloudKit(location: CLLocation) {
         let mePredicate = NSPredicate(format: "UserID == %@", self.meIDGlobal!)
         let query = CKQuery(recordType: PersonType,
                             predicate: mePredicate)
@@ -163,7 +182,39 @@ class Model {
                     return
                 }
             } else {
-                print("found record")
+                for myRecord in results! {
+                    myRecord["Location"] = location
+                
+                    self.publicDB.saveRecord(myRecord, completionHandler: { (record, error) in
+                        if error != nil {
+                            print("error updating record: \(error?.localizedDescription)")
+                            // labor of love error handling
+                        } else {
+                            print("My record updated successfully")
+                        }
+                    })
+                }
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.modelUpdated()
+                    return
+                }
+            }
+        }
+    }
+    
+    func updatePersonInCloudKit(description: String?, photos: [CKAsset]) {
+        let mePredicate = NSPredicate(format: "UserID == %@", self.meIDGlobal!)
+        let query = CKQuery(recordType: PersonType,
+                            predicate: mePredicate)
+        
+        self.publicDB.performQuery(query, inZoneWithID: nil) {
+            results, error in
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.errorUpdating(error!)
+                    return
+                }
+            } else {
                 for myRecord in results! {
                     if description != nil {
                         myRecord["About"] = description
@@ -184,7 +235,6 @@ class Model {
                         }
                 })
             }
-                
                 dispatch_async(dispatch_get_main_queue()) {
                     self.delegate?.modelUpdated()
                     return
@@ -194,15 +244,36 @@ class Model {
     }
     
     func imageToAsset(image: UIImage) -> CKAsset {
-        let imageData = UIImageJPEGRepresentation(image, 0.8)
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let documentDirectory = paths[0] as String
-        let myFilePath = documentDirectory.stringByAppendingString(".jpg")
-        imageData!.writeToFile(myFilePath, atomically: true)
-        let url = NSURL(fileURLWithPath: myFilePath)
-        let asset = CKAsset(fileURL: url)
+        let imageData = UIImageJPEGRepresentation(image, 1.0)
+        let nsUrl = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(NSUUID().UUIDString+".dat")
         
+        do {
+            try imageData!.writeToURL(nsUrl, options: [])
+        } catch let e as NSError {
+            print("Error! \(e)");
+        }
+        
+        let asset = CKAsset(fileURL: nsUrl)
         return asset
+    }
+    
+    func subscribeToMessages() {
+        let predicate = NSPredicate(format:"RecipientID = %@", self.meIDGlobal!)
+        let subscription = CKSubscription(recordType: "Message", predicate: predicate, options: .FiresOnRecordCreation)
+        
+        let notification = CKNotificationInfo()
+        notification.alertBody = "New Message"
+        notification.soundName = UILocalNotificationDefaultSoundName
+        
+        subscription.notificationInfo = notification
+        
+        self.publicDB.saveSubscription(subscription) { (result, error) -> Void in
+            if error != nil {
+                print(error!.localizedDescription)
+            } else {
+                print ("successfully saved subscription")
+            }
+        }
     }
     
     func sendMessage(recipientID: String, senderID: String, text: String, date: NSDate) {
@@ -224,28 +295,13 @@ class Model {
         })
     }
     
+    func receiveNewMessages() {
+        self.delegate?.newMessages!()
+    }
+    
     func downloadMessagesFromCloudKit(recipientID: String, senderID: String) {
-                    
-                    let senderPredicate2 = NSPredicate(format: "RecipientID == %@", senderID)
-                    let recipientPredicate2 = NSPredicate(format: "SenderID == %@", recipientID)
-                    let predicateTwo = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [senderPredicate2, recipientPredicate2])
-                    let queryTwo = CKQuery(recordType: "Message", predicate: predicateTwo)
-                    self.publicDB.performQuery(queryTwo, inZoneWithID: nil) { rezults, error in
-                        if error != nil {
-                            print("error fetching messages in Model")
-                        } else {
-                            for record in rezults! {
-                                let eachMessage = MessagePlainObject(record: record, database: self.publicDB, serverID: record.recordID.recordName)
-                                self.downloadedMessages.append(eachMessage)
-                                print(eachMessage)
-                            }
-                        }
-        }
-        
-        let senderPredicate = NSPredicate(format: "SenderID == %@", senderID)
-        let recipientPredicate = NSPredicate(format: "RecipientID == %@", recipientID)
-        let predicateOne = NSCompoundPredicate(type: NSCompoundPredicateType.AndPredicateType, subpredicates: [senderPredicate, recipientPredicate])
-        let query = CKQuery(recordType: "Message", predicate: predicateOne)
+        let toPredicate = NSPredicate(format: "SenderID == %@ AND RecipientID == %@", senderID, recipientID)
+        let query = CKQuery(recordType: "Message", predicate: toPredicate)
         self.publicDB.performQuery(query, inZoneWithID: nil) { results, error in
             if error != nil {
                 dispatch_async(dispatch_get_main_queue()) {
@@ -258,6 +314,31 @@ class Model {
                     self.downloadedMessages.append(eachMessage)
                     print(eachMessage)
                 }
+                
+                self.secondQuery(recipientID, senderID: senderID)
+            }
+        }
+    }
+
+    func secondQuery(recipientID: String, senderID: String) {
+        let fromPredicate = NSPredicate(format: "SenderID == %@ AND RecipientID == %@", recipientID, senderID)
+        let query = CKQuery(recordType: "Message", predicate: fromPredicate)
+        
+        self.publicDB.performQuery(query, inZoneWithID: nil) { results, error in
+            if error != nil {
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.delegate?.errorUpdating(error!)
+                    return
+                }
+            } else {
+                for record in results! {
+                    let eachMessage = MessagePlainObject(record: record, database: self.publicDB, serverID: record.recordID.recordName)
+                    self.downloadedMessages.append(eachMessage)
+                    print(eachMessage)
+                }
+                
+                self.downloadedMessages.sortInPlace({ $0.date.compare($1.date) == .OrderedAscending })
+                
                 dispatch_async(dispatch_get_main_queue()) {
                     self.delegate?.modelUpdated()
                     return
@@ -265,11 +346,48 @@ class Model {
             }
         }
     }
-
-    func storeMessage(recipientID: String, senderID: String, text: String, date: NSDate) {
-        // store message in CoreData (Do I want to do this?)
+    
+    func updateChatBuddy(buddyID: String) {
+        let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+        let request = NSFetchRequest(entityName: "ChatBuddy")
+        request.predicate = NSPredicate(format: "userID == %@", buddyID)
+        var results : [AnyObject]?
+        
+        do {
+            results = try context.executeFetchRequest(request)
+        } catch _ {
+            results = nil
+            // labor of love error handling
+        }
+        
+        if results != nil {
+            let chatBuddies = results as! [ChatBuddy]!
+            for chatBud in chatBuddies {
+                chatBud.lastMessageDate = NSDate()
+            }
+        }
     }
-
+    
+    func fetchSelfFromCoreData() {
+            let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
+            let request = NSFetchRequest(entityName: "FacebookInfo")
+            var results : [AnyObject]?
+            
+            do {
+                results = try context.executeFetchRequest(request)
+            } catch _ {
+                results = nil
+                // labor of love error handling
+            }
+            
+            if results != nil {
+                let infoFetched = results as? [FacebookInfo]!
+                for person in infoFetched! {
+                    self.meIDGlobal = person.userID
+                }
+            }
+        }
+    
 }
 
 

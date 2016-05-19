@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Automatic">
     <entity name="ChatBuddy" representedClassName=".ChatBuddy" syncable="YES">
-        <attribute name="imageString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="lastMessageDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="profilePhotos" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="FacebookInfo" representedClassName=".FacebookInfo" syncable="YES">

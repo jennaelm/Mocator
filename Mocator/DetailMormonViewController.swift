@@ -19,12 +19,15 @@ class DetailMormonViewController: UIViewController {
     @IBOutlet weak var imageView3: UIImageView!
     @IBOutlet weak var imageView4: UIImageView!
     
+    let model : Model = Model.sharedInstance()
     var allImages = [UIImage]()
     var detailMormon : Mormon?
     var facebookProfileURL : NSURL!
     var meUserId : String?
     var swipePosition = 0
-   
+    var meowMeow : Bool?
+    var fbID : String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,13 +57,20 @@ class DetailMormonViewController: UIViewController {
             }
         }
         
-        fetchFromCoreData()
+        self.meUserId = model.meIDGlobal
         
         self.nameLabel.text = self.detailMormon?.name
         let facebookProfileString = self.detailMormon?.facebookLinkString
         self.facebookProfileURL = NSURL(string: facebookProfileString!)
         self.facebookButton.addTarget(self, action: #selector(DetailMormonViewController.facebookButtonTapped(_:)), forControlEvents: .TouchUpInside)
+        self.fbID = self.detailMormon?.fbID
         
+        setUpSwipes()
+    }
+
+// Swiping Through Pics
+    
+    func setUpSwipes() {
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ViewProfileViewController.swiped(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.imageView.addGestureRecognizer(swipeRight)
@@ -95,24 +105,25 @@ class DetailMormonViewController: UIViewController {
         }
     }
     
-    func fetchFromCoreData() {
-        let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let request = NSFetchRequest(entityName: "FacebookInfo")
-        var results : [AnyObject]?
-        
-        do {
-            results = try context.executeFetchRequest(request)
-        } catch _ {
-            results = nil
-            // labor of love error handling
+// Button Taps
+
+    @IBAction func facebookButtonTapped(sender: AnyObject) {
+        if UIApplication.sharedApplication().canOpenURL(NSURL(string:"fb://profile/\(self.fbID!)")!) {
+            UIApplication.sharedApplication().openURL(NSURL(string:"fb://profile/\(self.fbID!)")!)
+        } else {
+            UIApplication.sharedApplication().openURL(self.facebookProfileURL)
         }
-        
-        if results != nil {
-            let infoFetched = results as? [FacebookInfo]!
-            for person in infoFetched! {
-                self.meUserId = person.userID
-            }
-        }
+    }
+    
+    @IBAction func chatTapped(sender: AnyObject) {
+        addMormonToCoreData()
+        self.performSegueWithIdentifier("toChatSegue", sender: self)
+    }
+    
+    @IBAction func kittenTapped(sender: AnyObject) {
+        self.meowMeow = true
+        addMormonToCoreData()
+        self.performSegueWithIdentifier("toChatSegue", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -123,29 +134,34 @@ class DetailMormonViewController: UIViewController {
             chatViewController.mormonChatBuddy = self.detailMormon
             chatViewController.senderId = self.meUserId
             chatViewController.senderDisplayName = self.detailMormon?.name
+            
+            if self.meowMeow == true {
+                chatViewController.catText = true
+            }
         }
     }
 
-    @IBAction func facebookButtonTapped(sender: AnyObject) {
-        UIApplication.sharedApplication().openURL(self.facebookProfileURL)
-    }
-    
-    @IBAction func chatTapped(sender: AnyObject) {
-        self.performSegueWithIdentifier("toChatSegue", sender: self)
-        addMormonToCoreData()
-    }
-    
-    @IBAction func kittenTapped(sender: AnyObject) {
-        print("Meow meow.")
-        // send chat with a bunch of 😻 (?)
-    }
+// Core Data
     
     func addMormonToCoreData() {
         let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-        let newChatBuddy = NSEntityDescription.insertNewObjectForEntityForName("ChatBuddy", inManagedObjectContext: context) as! ChatBuddy
-        newChatBuddy.userID = self.detailMormon!.mormonUserID
-        newChatBuddy.name = self.detailMormon!.name
-        newChatBuddy.lastMessageDate = NSDate()
+        let fetchRequest = NSFetchRequest(entityName: "ChatBuddy")
+        fetchRequest.predicate = NSPredicate(format: "userID == %@", self.detailMormon!.mormonUserID)
+        var error: NSError? = nil
+        let count = context.countForFetchRequest(fetchRequest, error: &error)
+        
+        if count == NSNotFound {
+            print("*!%9$(%*$ Core Data Error: \(error?.localizedDescription)")
+        } else if count == 0 {
+            let newChatBuddy = NSEntityDescription.insertNewObjectForEntityForName("ChatBuddy", inManagedObjectContext: context) as! ChatBuddy
+            newChatBuddy.userID = self.detailMormon!.mormonUserID
+            newChatBuddy.name = self.detailMormon!.name
+            newChatBuddy.lastMessageDate = NSDate()
+            let profilePhoto = self.allImages[0]
+            let profileData = UIImageJPEGRepresentation(profilePhoto, 1.0)
+            newChatBuddy.profilePhotos = profileData
+        }
+        
         do {
             try context.save()
         } catch {

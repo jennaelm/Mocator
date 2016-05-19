@@ -98,9 +98,7 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         var allImages = [UIImage]()
         for imgView in self.imageViewArray {
             if imgView.image == nil {
-                // do nothing
             } else if imgView.image == UIImage(named: "plus") {
-                // do nothing
             } else {
                 allImages.append(imgView.image!)
                 let asset = model.imageToAsset(imgView.image!)

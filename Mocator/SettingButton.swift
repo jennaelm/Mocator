@@ -14,8 +14,11 @@ class SettingButton: UIButton {
         didSet{
             if isChecked == true {
                 self.backgroundColor = UIColor.orangeColor()
+                self.titleLabel!.textColor = UIColor.whiteColor()
+                self.titleLabel!.font = UIFont.boldSystemFontOfSize(16.0)
             } else {
                 self.backgroundColor = UIColor.grayColor()
+                self.titleLabel!.font = UIFont.systemFontOfSize(13.0)
             }
         }
     }

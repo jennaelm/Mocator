@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
 
@@ -16,6 +17,8 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
     var mormonChatBuddy : Mormon?
     var allReceivedMessages = [MessagePlainObject]()
     var allSentMessages = [MessagePlainObject]()
+    var catText : Bool?
+    var chatBuddyName : String?
     
     let model : Model = Model.sharedInstance()
     var mormonChatBuddyID : String?
@@ -26,15 +29,23 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
         // Go be free
         
         model.delegate = self
+        model.downloadedMessages = []
+        self.messages = []
         
-        self.mormonChatBuddyID = self.mormonChatBuddy!.mormonUserID
+        if self.mormonChatBuddyID == nil {
+            self.mormonChatBuddyID = self.mormonChatBuddy!.mormonUserID
+        }
+        
+        title = self.senderDisplayName
+  
         setupBubbles()
-        model.downloadMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: senderId)
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
-        title = self.mormonChatBuddy!.name
+        
+        model.downloadMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: senderId)
+  
     }
-
+    
     private func setupBubbles() {
         let factory = JSQMessagesBubbleImageFactory()
         outgoingBubbleImageView = factory.outgoingMessagesBubbleImageWithColor(UIColor.jsq_messageBubbleBlueColor())
@@ -51,10 +62,14 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
     
     func modelUpdated() {
         if model.downloadedMessages.count > 0 {
-            print("Yes downloaded messages")
             for msg in model.downloadedMessages {
                 addMessage(msg.senderID, text: msg.value)
             }
+            
+            if self.catText == true {
+               meowMeowMeow()
+            }
+            
             self.finishReceivingMessageAnimated(true)
         } else {
             print("no downloaded messages")
@@ -63,6 +78,14 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
     
     func errorUpdating(error: NSError) {
         print("error updating: \(error.localizedDescription)")
+        // labor of love error handling---retry (?)
+    }
+    
+    func newMessages() {
+        model.downloadedMessages = []
+        self.messages = []
+        model.downloadMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: senderId)
+        model.updateChatBuddy(self.mormonChatBuddyID!)
     }
 
 // JSQMessages Delegate
@@ -94,11 +117,24 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
         let message = JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, text: text)
         self.messages += [message]
         model.sendMessage(self.mormonChatBuddyID!, senderID: senderId!, text: text, date: date)
+        model.updateChatBuddy(self.mormonChatBuddyID!)
         self.finishSendingMessageAnimated(true)
     }
     
     @IBAction func backTapped(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
+
+// Meow Meow Meow
     
+    func meowMeowMeow() {
+        let date = NSDate()
+        let text = "😻I😻L😻O😻V😻E😻Y😻O😻U😻"
+        addMessage(senderId, text: text)
+        model.sendMessage(self.mormonChatBuddyID!, senderID: senderId!, text: text, date: date)
+        model.updateChatBuddy(self.mormonChatBuddyID!)
+        self.catText = false
+    }
+
+
 }

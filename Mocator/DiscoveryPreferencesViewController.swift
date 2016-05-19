@@ -49,6 +49,8 @@ class DiscoveryPreferencesViewController: UIViewController {
         updateButtons()
     }
     
+// Button Taps
+    
     func updateButtons() {
         dispatch_after(1, dispatch_get_main_queue(), {
             self.maleButton.isChecked! = self.discoveryPreferences!.maleBool!
@@ -62,25 +64,52 @@ class DiscoveryPreferencesViewController: UIViewController {
         let newMaleBool = !self.discoveryPreferences!.maleBool!
         discoveryPreferences!.maleBool = newMaleBool
         discoveryPreferences!.save()
+        preventFromCrashing("male")
     }
     
     @IBAction func femaleButtonTapped(sender: AnyObject) {
         let newFemaleBool = !self.discoveryPreferences!.femaleBool!
         discoveryPreferences!.femaleBool = newFemaleBool
         discoveryPreferences!.save()
+        preventFromCrashing("female")
     }
     
     @IBAction func friendsButtonTapped(sender: AnyObject) {
         let newFriendsBool = !self.discoveryPreferences!.friendsBool!
         discoveryPreferences!.friendsBool = newFriendsBool
         discoveryPreferences!.save()
+        preventFromCrashing("friends")
     }
     
     @IBAction func dateButtonTapped(sender: AnyObject) {
         let newDatesBool = !self.discoveryPreferences!.datesBool!
         discoveryPreferences!.datesBool = newDatesBool
         discoveryPreferences!.save()
+        preventFromCrashing("dates")
     }
+    
+    func preventFromCrashing(button : String) {
+        if discoveryPreferences!.maleBool == false && discoveryPreferences!.maleBool == false {
+            if button == "male" {
+                 discoveryPreferences!.femaleBool = true
+            } else if button == "female" {
+                discoveryPreferences!.maleBool = true
+            }
+        }
+        
+        if discoveryPreferences!.friendsBool == false && discoveryPreferences!.datesBool == false {
+            if button == "friends" {
+                discoveryPreferences!.datesBool = true
+            } else if button == "dates" {
+                discoveryPreferences!.friendsBool = true
+            }
+        }
+        
+        discoveryPreferences!.save()
+        updateButtons()
+    }
+
+// Side Bar Menu
     
     func setUpRevealController() {
         if self.revealViewController() != nil {
