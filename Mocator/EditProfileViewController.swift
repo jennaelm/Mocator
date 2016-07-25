@@ -16,9 +16,10 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var imageView2: UIImageView!
     @IBOutlet weak var imageView3: UIImageView!
     @IBOutlet weak var imageView4: UIImageView!
+    @IBOutlet weak var imageView5: UIImageView!
     @IBOutlet weak var descriptionField: UITextField!
     
-    let model: Model = Model.sharedInstance()
+    let mormonManager = MormonManager()
     
     var imageViewArray = [UIImageView]()
     var originalProfileImage : UIImage!
@@ -35,13 +36,16 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
 
         // Go be free
         
-        self.imagePicker.delegate = self
-        self.imageViewArray = [imageViewBig, imageView2, imageView3, imageView4]
-        self.imageViewBig.image = originalProfileImage
+        customizeNavBar()
         
+        self.imagePicker.delegate = self
+        self.imageViewArray = [imageViewBig, imageView2, imageView3, imageView4, imageView5]
+        self.imageViewBig.image = originalProfileImage
         
         var index = 0
         for imgView in self.imageViewArray {
+            imgView.layer.borderColor = UIColor(red: 25/160, green: 33/160, blue: 61/160, alpha: 1).CGColor
+            imgView.layer.borderWidth = 1.0
             if self.profileImages?.count > index {
                 imgView.image = profileImages![index]
                 index = index + 1
@@ -55,16 +59,25 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         imageViewsAsButtons()
     }
     
+    func customizeNavBar() {
+        let imgView = UIImageView()
+        imgView.image = UIImage(named: "logo")
+        imgView.contentMode = .ScaleAspectFill
+        self.navigationItem.titleView = imgView
+    }
+    
     func imageViewsAsButtons() {
         let img1Rec = UITapGestureRecognizer(target: self, action: #selector(EditProfileViewController.tappedBigImage(_:)))
         let img2Rec = UITapGestureRecognizer(target: self, action:#selector(EditProfileViewController.tappedImageTwo(_:)))
         let img3Rec = UITapGestureRecognizer(target: self, action: #selector(EditProfileViewController.tappedImageThree(_:)))
         let img4Rec = UITapGestureRecognizer(target: self, action:#selector(EditProfileViewController.tappedImageFour(_:)))
+        let img5Rec = UITapGestureRecognizer(target: self, action:#selector(EditProfileViewController.tappedImageFive(_:)))
         
         self.imageViewBig.addGestureRecognizer(img1Rec)
         self.imageView2.addGestureRecognizer(img2Rec)
         self.imageView3.addGestureRecognizer(img3Rec)
         self.imageView4.addGestureRecognizer(img4Rec)
+        self.imageView5.addGestureRecognizer(img5Rec)
     }
     
     func tappedBigImage(recognizer: UITapGestureRecognizer) {
@@ -78,6 +91,9 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
     }
     func tappedImageFour(recognizer: UITapGestureRecognizer) {
         changeImage(self.imageView4)
+    }
+    func tappedImageFive(recognizer: UITapGestureRecognizer) {
+        changeImage(self.imageView5)
     }
     
     func changeImage(imageView: UIImageView) {
@@ -101,12 +117,12 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
             } else if imgView.image == UIImage(named: "plus") {
             } else {
                 allImages.append(imgView.image!)
-                let asset = model.imageToAsset(imgView.image!)
+                let asset = mormonManager.imageToAsset(imgView.image!)
                 self.photoAssets.append(asset)
             }
         }
         
-        model.updatePersonInCloudKit(descrip, photos: self.photoAssets)
+        mormonManager.updatePersonInCloudKit(descrip, photos: self.photoAssets)
         
         let CDataArray = NSMutableArray()
         for img in allImages {
@@ -132,7 +148,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
         }
         
         if results != nil {
-            print("results aren't nil")
             let infoFetched = results as? [FacebookInfo]!
             
             for person in infoFetched! {
@@ -141,8 +156,6 @@ class EditProfileViewController: UIViewController, UIImagePickerControllerDelega
                 }
                 person.profilePhotos = imageData
             }
-        } else {
-            print("results are nil")
         }
         
         do {

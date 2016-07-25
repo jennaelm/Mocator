@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15E65" minimumToolsVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
     <entity name="ChatBuddy" representedClassName=".ChatBuddy" syncable="YES">
         <attribute name="lastMessageDate" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="profilePhotos" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="userID" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="FacebookFriend" representedClassName=".FacebookFriend" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <entity name="FacebookInfo" representedClassName=".FacebookInfo" syncable="YES">
         <attribute name="firstName" optional="YES" attributeType="String" syncable="YES"/>
@@ -25,5 +28,6 @@
         <element name="ChatBuddy" positionX="-63" positionY="36" width="128" height="105"/>
         <element name="FacebookInfo" positionX="-63" positionY="-18" width="128" height="150"/>
         <element name="Message" positionX="-63" positionY="27" width="128" height="105"/>
+        <element name="FacebookFriend" positionX="-63" positionY="36" width="128" height="60"/>
     </elements>
 </model>

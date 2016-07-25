@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B60509551D2308FB003982E8 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60509541D2308FB003982E8 /* MessageHandler.swift */; };
+		B60909591D2D6C4E0039248D /* RoundButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B60909581D2D6C4E0039248D /* RoundButton.swift */; };
+		B61D958E1CF39CDA001373D8 /* MocatingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61D958D1CF39CDA001373D8 /* MocatingIndicator.swift */; };
 		B61E76601C719ADE00539B42 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E765F1C719ADE00539B42 /* AppDelegate.swift */; };
 		B61E76651C719ADE00539B42 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B61E76631C719ADE00539B42 /* Main.storyboard */; };
 		B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B61E76661C719ADE00539B42 /* Mocator.xcdatamodeld */; };
@@ -21,7 +24,7 @@
 		B61E768E1C71EEBB00539B42 /* ChatListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E768D1C71EEBB00539B42 /* ChatListViewController.swift */; };
 		B61E76921C71EF2100539B42 /* BrowseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76911C71EF2100539B42 /* BrowseViewController.swift */; };
 		B61E76941C72398900539B42 /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76931C72398900539B42 /* ImageCollectionViewCell.swift */; };
-		B61E76C41C746A2500539B42 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C31C746A2500539B42 /* Model.swift */; };
+		B61E76C41C746A2500539B42 /* MormonManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C31C746A2500539B42 /* MormonManager.swift */; };
 		B61E76C61C74752A00539B42 /* Mormon.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C51C74752A00539B42 /* Mormon.swift */; };
 		B61E76C81C7476E900539B42 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76C71C7476E900539B42 /* UserInfo.swift */; };
 		B61E76CC1C749CB800539B42 /* MenuTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76CB1C749CB800539B42 /* MenuTableViewController.swift */; };
@@ -29,9 +32,9 @@
 		B61E76D41C74ACE100539B42 /* DetailMormonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */; };
 		B61E76D61C74AF9600539B42 /* ViewProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76D51C74AF9600539B42 /* ViewProfileViewController.swift */; };
 		B61E76D81C762D1700539B42 /* EditProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61E76D71C762D1700539B42 /* EditProfileViewController.swift */; };
+		B649D31B1CF4DCEE0081D510 /* ChatListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B649D31A1CF4DCEE0081D510 /* ChatListTableViewCell.swift */; };
 		B65E324A1CEB69CB00248642 /* HelpHowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65E32491CEB69CB00248642 /* HelpHowToViewController.swift */; };
 		B65E324C1CEB6A4200248642 /* HelpFAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65E324B1CEB6A4200248642 /* HelpFAQViewController.swift */; };
-		B65E324E1CEB6B7000248642 /* HelpContactUsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B65E324D1CEB6B7000248642 /* HelpContactUsViewController.swift */; };
 		B66EA9741CB2CC690021D55A /* SettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9731CB2CC690021D55A /* SettingButton.swift */; };
 		B66EA9771CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */; };
 		B66EA9781CB47DAA0021D55A /* FacebookInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */; };
@@ -43,6 +46,11 @@
 		B67129BB1CC035AF0068D3BF /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67129B91CC035AF0068D3BF /* Message.swift */; };
 		B690A1B31CB6C10000BBBC9E /* ChatUpMormonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690A1B21CB6C0FF00BBBC9E /* ChatUpMormonViewController.swift */; };
 		B690A1B51CB6D02900BBBC9E /* MessagePlainObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = B690A1B41CB6D02900BBBC9E /* MessagePlainObject.swift */; };
+		B69B8A251D105FF4005C237D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B69B8A241D105FF4005C237D /* StoreKit.framework */; };
+		B6A0C7B31D36A3F700C2E74D /* MutualFriendsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0C7B21D36A3F700C2E74D /* MutualFriendsButton.swift */; };
+		B6A0C7B61D36B4E900C2E74D /* FacebookFriend+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0C7B41D36B4E900C2E74D /* FacebookFriend+CoreDataProperties.swift */; };
+		B6A0C7B71D36B4E900C2E74D /* FacebookFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0C7B51D36B4E900C2E74D /* FacebookFriend.swift */; };
+		B6A0C7B91D36C6FE00C2E74D /* FacebookMatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6A0C7B81D36C6FE00C2E74D /* FacebookMatchManager.swift */; };
 		B6DC68791CC7124600251EFC /* ChatBuddy.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC68781CC7124600251EFC /* ChatBuddy.swift */; };
 		B6DC687B1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6DC687A1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift */; };
 		CC4BC89B86037D72B54813DC /* libPods-Mocator.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */; };
@@ -52,6 +60,9 @@
 		7AC66A4D26AF860BF69DDB99 /* Pods-Mocator.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocator.release.xcconfig"; path = "Pods/Target Support Files/Pods-Mocator/Pods-Mocator.release.xcconfig"; sourceTree = "<group>"; };
 		8116E8E171DDF077E1075CE0 /* Pods-Mocator.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mocator.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Mocator/Pods-Mocator.debug.xcconfig"; sourceTree = "<group>"; };
 		B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Mocator.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B60509541D2308FB003982E8 /* MessageHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
+		B60909581D2D6C4E0039248D /* RoundButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundButton.swift; sourceTree = "<group>"; };
+		B61D958D1CF39CDA001373D8 /* MocatingIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MocatingIndicator.swift; sourceTree = "<group>"; };
 		B61E765C1C719ADE00539B42 /* Mocator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mocator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B61E765F1C719ADE00539B42 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B61E76641C719ADE00539B42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -71,7 +82,7 @@
 		B61E768D1C71EEBB00539B42 /* ChatListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListViewController.swift; sourceTree = "<group>"; };
 		B61E76911C71EF2100539B42 /* BrowseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BrowseViewController.swift; sourceTree = "<group>"; };
 		B61E76931C72398900539B42 /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
-		B61E76C31C746A2500539B42 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		B61E76C31C746A2500539B42 /* MormonManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MormonManager.swift; sourceTree = "<group>"; };
 		B61E76C51C74752A00539B42 /* Mormon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mormon.swift; sourceTree = "<group>"; };
 		B61E76C71C7476E900539B42 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		B61E76CB1C749CB800539B42 /* MenuTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuTableViewController.swift; sourceTree = "<group>"; };
@@ -79,9 +90,9 @@
 		B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailMormonViewController.swift; sourceTree = "<group>"; };
 		B61E76D51C74AF9600539B42 /* ViewProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewProfileViewController.swift; sourceTree = "<group>"; };
 		B61E76D71C762D1700539B42 /* EditProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewController.swift; sourceTree = "<group>"; };
+		B649D31A1CF4DCEE0081D510 /* ChatListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatListTableViewCell.swift; sourceTree = "<group>"; };
 		B65E32491CEB69CB00248642 /* HelpHowToViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpHowToViewController.swift; sourceTree = "<group>"; };
 		B65E324B1CEB6A4200248642 /* HelpFAQViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpFAQViewController.swift; sourceTree = "<group>"; };
-		B65E324D1CEB6B7000248642 /* HelpContactUsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HelpContactUsViewController.swift; sourceTree = "<group>"; };
 		B66EA9731CB2CC690021D55A /* SettingButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingButton.swift; sourceTree = "<group>"; };
 		B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FacebookInfo+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookInfo.swift; sourceTree = "<group>"; };
@@ -93,6 +104,11 @@
 		B67129B91CC035AF0068D3BF /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		B690A1B21CB6C0FF00BBBC9E /* ChatUpMormonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatUpMormonViewController.swift; sourceTree = "<group>"; };
 		B690A1B41CB6D02900BBBC9E /* MessagePlainObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagePlainObject.swift; sourceTree = "<group>"; };
+		B69B8A241D105FF4005C237D /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		B6A0C7B21D36A3F700C2E74D /* MutualFriendsButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MutualFriendsButton.swift; sourceTree = "<group>"; };
+		B6A0C7B41D36B4E900C2E74D /* FacebookFriend+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FacebookFriend+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B6A0C7B51D36B4E900C2E74D /* FacebookFriend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookFriend.swift; sourceTree = "<group>"; };
+		B6A0C7B81D36C6FE00C2E74D /* FacebookMatchManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FacebookMatchManager.swift; sourceTree = "<group>"; };
 		B6DC68781CC7124600251EFC /* ChatBuddy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatBuddy.swift; sourceTree = "<group>"; };
 		B6DC687A1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ChatBuddy+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B69B8A251D105FF4005C237D /* StoreKit.framework in Frameworks */,
 				B61E76831C71D2FA00539B42 /* FBSDKCoreKit.framework in Frameworks */,
 				B61E76841C71D2FA00539B42 /* FBSDKLoginKit.framework in Frameworks */,
 				B61E76851C71D2FA00539B42 /* FBSDKShareKit.framework in Frameworks */,
@@ -116,6 +133,7 @@
 		9A7AF81391E7A98E71BBBDAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B69B8A241D105FF4005C237D /* StoreKit.framework */,
 				B0DB0FABBD07C7880D3B952B /* libPods-Mocator.a */,
 			);
 			name = Frameworks;
@@ -154,7 +172,6 @@
 				B61E76D31C74ACE100539B42 /* DetailMormonViewController.swift */,
 				B61E76CF1C74A07400539B42 /* DiscoveryPreferencesViewController.swift */,
 				B61E76D71C762D1700539B42 /* EditProfileViewController.swift */,
-				B65E324D1CEB6B7000248642 /* HelpContactUsViewController.swift */,
 				B65E324B1CEB6A4200248642 /* HelpFAQViewController.swift */,
 				B65E32491CEB69CB00248642 /* HelpHowToViewController.swift */,
 				B66EA9811CB5B0A00021D55A /* HelpTableViewController.swift */,
@@ -180,11 +197,15 @@
 				B6DC68781CC7124600251EFC /* ChatBuddy.swift */,
 				B6DC687A1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift */,
 				B67129B21CBC1C500068D3BF /* DiscoveryPreferences.swift */,
+				B6A0C7B41D36B4E900C2E74D /* FacebookFriend+CoreDataProperties.swift */,
+				B6A0C7B51D36B4E900C2E74D /* FacebookFriend.swift */,
 				B66EA9761CB47DAA0021D55A /* FacebookInfo.swift */,
 				B66EA9751CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift */,
+				B6A0C7B81D36C6FE00C2E74D /* FacebookMatchManager.swift */,
 				B67129B91CC035AF0068D3BF /* Message.swift */,
 				B67129B81CC035AF0068D3BF /* Message+CoreDataProperties.swift */,
-				B61E76C31C746A2500539B42 /* Model.swift */,
+				B60509541D2308FB003982E8 /* MessageHandler.swift */,
+				B61E76C31C746A2500539B42 /* MormonManager.swift */,
 				B690A1B41CB6D02900BBBC9E /* MessagePlainObject.swift */,
 				B61E76C51C74752A00539B42 /* Mormon.swift */,
 				B61E76C71C7476E900539B42 /* UserInfo.swift */,
@@ -197,9 +218,13 @@
 			isa = PBXGroup;
 			children = (
 				B61E76631C719ADE00539B42 /* Main.storyboard */,
+				B649D31A1CF4DCEE0081D510 /* ChatListTableViewCell.swift */,
 				B66EA97F1CB57E0E0021D55A /* CustomImageFlowLayout.swift */,
-				B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */,
 				B61E76931C72398900539B42 /* ImageCollectionViewCell.swift */,
+				B61D958D1CF39CDA001373D8 /* MocatingIndicator.swift */,
+				B6A0C7B21D36A3F700C2E74D /* MutualFriendsButton.swift */,
+				B60909581D2D6C4E0039248D /* RoundButton.swift */,
+				B66EA97B1CB574DB0021D55A /* RoundedImageView.swift */,
 				B66EA9731CB2CC690021D55A /* SettingButton.swift */,
 			);
 			name = View;
@@ -251,6 +276,12 @@
 						CreatedOnToolsVersion = 7.2.1;
 						DevelopmentTeam = J7RC77R7KS;
 						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
 							com.apple.iCloud = {
 								enabled = 1;
 							};
@@ -343,16 +374,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				B61E76D81C762D1700539B42 /* EditProfileViewController.swift in Sources */,
+				B61D958E1CF39CDA001373D8 /* MocatingIndicator.swift in Sources */,
 				B66EA9781CB47DAA0021D55A /* FacebookInfo.swift in Sources */,
 				B61E76C61C74752A00539B42 /* Mormon.swift in Sources */,
-				B61E76C41C746A2500539B42 /* Model.swift in Sources */,
+				B61E76C41C746A2500539B42 /* MormonManager.swift in Sources */,
 				B61E768E1C71EEBB00539B42 /* ChatListViewController.swift in Sources */,
 				B65E324A1CEB69CB00248642 /* HelpHowToViewController.swift in Sources */,
+				B6A0C7B61D36B4E900C2E74D /* FacebookFriend+CoreDataProperties.swift in Sources */,
+				B6A0C7B31D36A3F700C2E74D /* MutualFriendsButton.swift in Sources */,
 				B61E76781C71D17200539B42 /* LoginViewController.swift in Sources */,
 				B67129BA1CC035AF0068D3BF /* Message+CoreDataProperties.swift in Sources */,
+				B649D31B1CF4DCEE0081D510 /* ChatListTableViewCell.swift in Sources */,
 				B61E76681C719ADE00539B42 /* Mocator.xcdatamodeld in Sources */,
+				B60909591D2D6C4E0039248D /* RoundButton.swift in Sources */,
 				B67129B31CBC1C500068D3BF /* DiscoveryPreferences.swift in Sources */,
+				B6A0C7B71D36B4E900C2E74D /* FacebookFriend.swift in Sources */,
 				B66EA9741CB2CC690021D55A /* SettingButton.swift in Sources */,
+				B60509551D2308FB003982E8 /* MessageHandler.swift in Sources */,
 				B66EA9821CB5B0A00021D55A /* HelpTableViewController.swift in Sources */,
 				B61E76D41C74ACE100539B42 /* DetailMormonViewController.swift in Sources */,
 				B6DC687B1CC7124E00251EFC /* ChatBuddy+CoreDataProperties.swift in Sources */,
@@ -364,6 +402,7 @@
 				B690A1B51CB6D02900BBBC9E /* MessagePlainObject.swift in Sources */,
 				B61E76D01C74A07400539B42 /* DiscoveryPreferencesViewController.swift in Sources */,
 				B66EA9771CB47DAA0021D55A /* FacebookInfo+CoreDataProperties.swift in Sources */,
+				B6A0C7B91D36C6FE00C2E74D /* FacebookMatchManager.swift in Sources */,
 				B66EA9801CB57E0E0021D55A /* CustomImageFlowLayout.swift in Sources */,
 				B61E76921C71EF2100539B42 /* BrowseViewController.swift in Sources */,
 				B67129BB1CC035AF0068D3BF /* Message.swift in Sources */,
@@ -372,7 +411,6 @@
 				B61E76D61C74AF9600539B42 /* ViewProfileViewController.swift in Sources */,
 				B61E76941C72398900539B42 /* ImageCollectionViewCell.swift in Sources */,
 				B690A1B31CB6C10000BBBC9E /* ChatUpMormonViewController.swift in Sources */,
-				B65E324E1CEB6B7000248642 /* HelpContactUsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -485,8 +523,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mocator/Mocator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jenna Miller (J7RC77R7KS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jenna Miller (J7RC77R7KS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-20151111",
@@ -495,7 +533,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.projects.jenna.Mocator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "bec095a5-ddfd-4b77-be24-ae2f89a2f175";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Mocator-Bridging-Header.h";
 			};
 			name = Debug;
@@ -506,8 +544,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Mocator/Mocator.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Jenna Miller (J7RC77R7KS)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Jenna Miller (J7RC77R7KS)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/FacebookSDKs-iOS-20151111",
@@ -516,7 +554,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.projects.jenna.Mocator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "bec095a5-ddfd-4b77-be24-ae2f89a2f175";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(SRCROOT)/Mocator-Bridging-Header.h";
 			};
 			name = Release;

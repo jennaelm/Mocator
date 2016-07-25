@@ -9,12 +9,12 @@
 import UIKit
 import CoreData
 import CoreLocation
+import CloudKit
 
 class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocationManagerDelegate {
     
-    
     let loginView : FBSDKLoginButton = FBSDKLoginButton()
-    let model : Model = Model.sharedInstance()
+    let mormonManager = MormonManager()
     
     var profilePicLink : String?
     var firstName : String?
@@ -26,11 +26,12 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
     var fbUserID : String?
     var locationManager : CLLocationManager!
     var userName = ""
+    var friendNames = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    // Go be free
+        // Go be free
         
         self.locationManager = CLLocationManager()
         getLocationPermission()
@@ -55,14 +56,27 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
             facebookResults = nil
         }
         
-        if facebookResults != nil {
-            let infoFetched = facebookResults as? [FacebookInfo]!
-            for person in infoFetched! {
-                model.meIDGlobal = person.userID
-                model.userGenderGlobal = person.gender
+        if facebookResults == nil {
+            self.getFacebookInformation{ (success) in
+                self.storeInCoreDataAndCloudKit()
             }
         }
     }
+    
+    override func viewDidAppear(animated: Bool) {
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            dispatch_async(dispatch_get_main_queue()){
+                self.performSegueWithIdentifier("segueToFirstScreen", sender: self)
+            }
+        } else {
+            self.view.addSubview(loginView)
+            loginView.center = self.view.center
+            loginView.readPermissions = ["public_profile", "user_friends"]
+            loginView.delegate = self
+        }
+    }
+
+// Location Manager
     
     func getLocationPermission() {
         self.locationManager.requestWhenInUseAuthorization()
@@ -72,19 +86,15 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
             locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             locationManager.startUpdatingLocation()
         } else {
-            print("Location services disabled DUN DUN DUNNNNNN")
-            print("Fix: Request again?")
+            self.locationManager.requestWhenInUseAuthorization()
         }
     }
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print("location updated")
-        
         if locations.count > 0 {
             self.userLocation = locations[0]
             locationManager.stopUpdatingLocation()
         }
- 
     }
     
     func generateCloudKitAlert() {
@@ -104,62 +114,67 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
         })
     }
     
-    override func viewDidAppear(animated: Bool) {
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            // User is already logged in
-            dispatch_async(dispatch_get_main_queue()){
-                self.performSegueWithIdentifier("segueToFirstScreen", sender: self)
-            }
-        } else {
-            // Proceed to login                     
-            self.view.addSubview(loginView)
-            loginView.center = self.view.center
-            loginView.readPermissions = ["public_profile", "user_likes"]
-            loginView.delegate = self
-        }
-    }
-    
-    
-// Facebook
+// Facebook Login Delegate
     
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) { dispatch_async(dispatch_get_main_queue()){
         if ((error) != nil) {
             print("Error type: \(error.localizedDescription)")
         } else if result.isCancelled {
-            print("login cancelled")
             // Handle cancellations
         } else {
-            self.getFacebookInformation()
+            self.getFacebookInformation{ (success) in
+                self.storeInCoreDataAndCloudKit()
+                }
             }
         }
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        print("User Logged Out")
     }
     
-    func getFacebookInformation() {
-        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters:["fields": "id, email, likes, first_name, last_name, link, gender"])
+// Fetch and Store Facebook Information
+    
+    func getFacebookInformation(completionClosure: (success:Bool) ->()) {
+        
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters:["fields": "id, first_name, last_name, link, gender, likes"])
             graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             
+            self.requestFacebookFriends()
+                
             if ((error) != nil) {
                 print("Error fetching facebook information: \(error.localizedDescription)")
-                // labor of love error handling
             } else {
                 self.fbUserID = result.valueForKey("id") as? String
-                self.profilePicLink = "http://graph.facebook.com/\(self.fbUserID)/picture?type=large"
+                self.profilePicLink = "http://graph.facebook.com/\(self.fbUserID!)/picture?type=large"
                 self.firstName = result.valueForKey("first_name") as? String
                 self.lastName = result.valueForKey("last_name") as? String
                 self.userLink = result.valueForKey("link") as! String
                 self.userGender = result.valueForKey("gender") as? String
-                self.userID = "M\(self.fbUserID)\(self.lastName!)"
+                self.userID = "M\(self.fbUserID!)\(self.lastName!)"
                 
-                self.storeInCoreDataAndCloudKit()
+                NSUserDefaults.standardUserDefaults().setObject("\(self.userGender!)", forKey: "gender")
+                NSUserDefaults.standardUserDefaults().setObject("\(self.userID!)", forKey: "id")
+                
+                let flag = true
+                completionClosure(success: flag)
             }
         })
     }
     
-// CoreData
+    func requestFacebookFriends() {
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me/friends", parameters:["fields": "id"])
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+            let resultdict = result! as! NSDictionary
+            print("Result Dict: \(resultdict)")
+            let friendsArray : NSArray = resultdict.objectForKey("data") as! NSArray
+            
+            for dict in friendsArray {
+                if let name = dict["name"] as! String? {
+                    self.friendNames.append(name)
+                }
+            }
+        })
+    }
 
     func storeInCoreDataAndCloudKit() {
         let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
@@ -180,7 +195,7 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
             let imageURL = NSURL(string: self.profilePicLink!)
             let imageData = NSData(contentsOfURL: imageURL!)
             let CDataArray = NSMutableArray()
-            CDataArray.addObject(imageData!)
+                CDataArray.addObject(imageData!)
             let coreDataObject = NSKeyedArchiver.archivedDataWithRootObject(CDataArray)
             
             newFbInfo.firstName = self.firstName
@@ -196,12 +211,19 @@ class LoginViewController: UIViewController, FBSDKLoginButtonDelegate, CLLocatio
                 self.userLocation = CLLocation(latitude: 37, longitude: 122)
             }
             
-            model.pushPersonToCloudKit(self.userID!, firstName: self.firstName!, lastName: self.lastName!, picString: self.profilePicLink!, fbID: self.fbUserID!, profileLink: self.userLink!, gender: self.userGender!, lookingFor: genericLookingFor, location: self.userLocation!)
-                
+            if self.friendNames.count > 0 {
+                for friendName in self.friendNames {
+                    let newFriend = NSEntityDescription.insertNewObjectForEntityForName("FacebookFriend", inManagedObjectContext: context) as! FacebookFriend
+                    newFriend.name = friendName
+                }
+            }
+
+            self.mormonManager.pushPersonToCloudKit(self.userID!, firstName: self.firstName!, lastName: self.lastName!, picString: self.profilePicLink!, fbID: self.fbUserID!, profileLink: self.userLink!, gender: self.userGender!, lookingFor: genericLookingFor, location: self.userLocation!, friendList: self.friendNames)
+            
             do {
                 try context.save()
             } catch {
-                // labor of love error handling
+               // error handling
             }
         }
     }

@@ -52,8 +52,6 @@ class UserInfo : NSObject {
                                         self.publicDB.saveRecord(record!, completionHandler: { record, error in
                                         if let saveError = error {
                                             print("An error occurred while saving CloudKit Record \(saveError)")
-                                        } else {
-                                            // do nothing
                                         }
                                     })
                                 })

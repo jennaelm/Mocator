@@ -22,8 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let settings:UIUserNotificationSettings = UIUserNotificationSettings(forTypes: types, categories: nil)
         application.registerUserNotificationSettings(settings)
         application.registerForRemoteNotifications()
-        
-          return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+
+        return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
     }
     
     func application(application: UIApplication,
@@ -38,66 +38,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject]) {
-        
-        let model: Model = Model.sharedInstance()
-        model.receiveNewMessages()
-        
+        let messageHandler = MessageHandler()
         let cloudKitNotification = CKNotification(fromRemoteNotificationDictionary: userInfo as! [String : NSObject])
         if cloudKitNotification.notificationType == .Query {
             let queryNotification = cloudKitNotification as! CKQueryNotification
-            if queryNotification.queryNotificationReason == .RecordDeleted {
-                // If the record has been deleted in CloudKit then delete the local copy here
-            } else {
-                // If the record has been created or changed, we fetch the data from CloudKit
-                let database: CKDatabase
-                    database = CKContainer.defaultContainer().publicCloudDatabase
-                    database.fetchRecordWithID(queryNotification.recordID!, completionHandler: { (record: CKRecord?, error: NSError?) -> Void in
+            let database: CKDatabase
+                database = CKContainer.defaultContainer().publicCloudDatabase
+                database.fetchRecordWithID(queryNotification.recordID!, completionHandler: { (record: CKRecord?, error: NSError?) -> Void in
                     guard error == nil else {
                         // Handle the error here
                         return
                     }
                     
-                    let newMessage = MessagePlainObject(record: record!, database: database, serverID: record!.recordID.recordName)
-                        
-                        let context = (UIApplication.sharedApplication().delegate as! AppDelegate).managedObjectContext
-                        let fetchRequest = NSFetchRequest(entityName: "ChatBuddy")
-                        fetchRequest.predicate = NSPredicate(format: "userID == %@", newMessage.senderID)
-                        var error: NSError? = nil
-                        let count = context.countForFetchRequest(fetchRequest, error: &error)
-                        
-                        if count == NSNotFound {
-                            print("*!%9$(%*$ Core Data Error: \(error?.localizedDescription)")
-                        } else if count == 0 {
-                            let senderPredicate = NSPredicate(format: "UserID == %@", newMessage.senderID)
-                            let query = CKQuery(recordType: PersonType,
-                                predicate: senderPredicate)
-                            
-                            database.performQuery(query, inZoneWithID: nil) {
-                                results, error in
-                                if error != nil {
-                                    print("Error querying for user")
-                                }
-                                
-                                for newRecord in results! {
-                                    let newChatBuddy = NSEntityDescription.insertNewObjectForEntityForName("ChatBuddy", inManagedObjectContext: context) as! ChatBuddy
-                                    newChatBuddy.userID = newRecord.objectForKey("UserID") as? String
-                                    newChatBuddy.name = newRecord.objectForKey("Name") as? String
-                                    newChatBuddy.lastMessageDate = NSDate()
-                                    let profilePhotos = newRecord.objectForKey("Photos") as? [CKAsset]
-                                    let coverAsset = profilePhotos![0]
-                                    let imageData = NSData(contentsOfURL: coverAsset.fileURL)
-                                    newChatBuddy.profilePhotos = imageData
-                                }
-                                
-                                do {
-                                    try context.save()
-                                } catch {
-                                    print("Error saving context")
-                                }
-                            }
-                        }
-                })
-            }
+            let newMessage = MessagePlainObject(record: record!, database: database, serverID: record!.recordID.recordName)
+                    
+            messageHandler.handleNewMessage(newMessage.senderID, recipientID: newMessage.recipientID)
+            
+            })
         }
     }
     

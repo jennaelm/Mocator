@@ -9,14 +9,13 @@
 import UIKit
 import CloudKit
 
-class BrowseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, ModelDelegate, CLLocationManagerDelegate {
+class BrowseViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, MormonManagerDelegate, CLLocationManagerDelegate {
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
     let publicDB = CKContainer.defaultContainer().publicCloudDatabase
-    let model: Model = Model.sharedInstance()
-    let refresher = UIRefreshControl()
+    let mormonManager = MormonManager()
     
     var collectionViewLayout: CustomImageFlowLayout!
     var locationManager: CLLocationManager!
@@ -25,11 +24,30 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     var location : CLLocation?
     var genderPreferences : [String]?
     var lookingForPreferences : [String]?
+    var mocatingIndicator : MocatingIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Go be free
+        
+        self.mormonManager.delegate = self
+
+        customizeNavBar()
+        
+        UIApplication.sharedApplication().beginIgnoringInteractionEvents()
+
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
+        self.collectionView.alwaysBounceVertical = true
+        self.collectionViewLayout = CustomImageFlowLayout()
+        self.collectionView.collectionViewLayout = collectionViewLayout
+        
+        self.mocatingIndicator = MocatingIndicator(title: "Mocating...", center: self.view.center)
+        let miView = self.mocatingIndicator.getViewActivityIndicator()
+        self.view.addSubview(miView)
+        self.view.bringSubviewToFront(miView)
+        self.mocatingIndicator.startAnimating()
         
         setUpRevealController()
         setupLocationManager()
@@ -42,27 +60,10 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
             setUpDiscoveryPreferences()
         }
         
-        var refreshControl = UIRefreshControl()
-        refreshControl = refresher
-        
-        self.collectionView.dataSource = self
-        self.collectionView.delegate = self
-        self.collectionView.addSubview(refreshControl)
-        self.collectionView.alwaysBounceVertical = true
-        self.collectionViewLayout = CustomImageFlowLayout()
-        self.collectionView.collectionViewLayout = collectionViewLayout
-   
-        self.model.delegate = self
-        self.model.fetchSelfFromCoreData()
-        
-        refresher.addTarget(self, action: #selector(BrowseViewController.refreshMormons), forControlEvents: .ValueChanged)
-        
         self.genderPreferences = self.discoveryPreferences!.returnArrayOfGenders()
         self.lookingForPreferences = self.discoveryPreferences!.returnArrayOfTypes()
         
-        if self.location != nil {
-            model.updateLocationInCloudKit(self.location!)
-        }
+        refreshMormons()
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -76,19 +77,20 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func refreshMormons() {
         if self.location != nil {
-            model.updateLocationInCloudKit(self.location!)
-            model.fetchPersons(self.location!, radiusInMeters: 300000, genders: self.genderPreferences!, lookingFor: self.lookingForPreferences!)
+            self.mormonManager.updateLocationInCloudKit(self.location!)
+            self.mormonManager.fetchPersons(self.location!, genders: self.genderPreferences!, lookingFor: self.lookingForPreferences!)
+        } else {
+            self.location = CLLocation(latitude: 37, longitude: 122)
+            self.mormonManager.fetchPersons(self.location!, genders: self.genderPreferences!, lookingFor: self.lookingForPreferences!)
         }
-        refresher.endRefreshing()
     }
     
 // Discovery Preferences
     
     func setUpDiscoveryPreferences() {
-        print(self.model.userGenderGlobal)
-        if self.model.userGenderGlobal == "male" {
+        if NSUserDefaults.standardUserDefaults().stringForKey("gender") == "male" {
             discoveryPreferences = DiscoveryPreferences(maleBool: false, femaleBool: true, datesBool: true, friendsBool: true)
-        } else if self.model.userGenderGlobal == "female" {
+        } else if NSUserDefaults.standardUserDefaults().stringForKey("gender") == "female" {
             discoveryPreferences = DiscoveryPreferences(maleBool: true, femaleBool: false, datesBool: true, friendsBool: true)
         } else {
             discoveryPreferences = DiscoveryPreferences(maleBool: true, femaleBool: true, datesBool: true, friendsBool: true)
@@ -102,7 +104,7 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
-        locationManager.distanceFilter = 500.0 //0.5km
+        locationManager.distanceFilter = 500.0
         locationManager.delegate = self
         
         CLLocationManager.authorizationStatus()
@@ -111,6 +113,8 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)  {
         switch status {
             case .NotDetermined:
+                manager.requestWhenInUseAuthorization()
+            case .Denied:
                 manager.requestWhenInUseAuthorization()
             case .AuthorizedWhenInUse:
                 manager.startUpdatingLocation()
@@ -122,7 +126,6 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let loc = locations.last as CLLocation? {
             self.location = loc
-            model.fetchPersons(self.location!, radiusInMeters: 30000000, genders: self.genderPreferences!, lookingFor: self.lookingForPreferences!)
             locationManager.stopUpdatingLocation()
         }
     }
@@ -131,38 +134,63 @@ class BrowseViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     func modelUpdated() {
          self.collectionView.reloadData()
+        UIApplication.sharedApplication().endIgnoringInteractionEvents()
+        self.mocatingIndicator.stopAnimating()
+        
     }
     
     func errorUpdating(error: NSError) {
-       print("There was an error updating while browsing: \(error.localizedDescription)")
+        self.mocatingIndicator.stopAnimating()
+        let errorAlertController = UIAlertController(title: "Could Not Mocate", message: "Network error. Please try again later.", preferredStyle: .Alert)
+        let dismissAction = UIAlertAction(title: "I Still Love You", style: .Default, handler: { action in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        })
+        
+        errorAlertController.addAction(dismissAction)
+        self.presentViewController(errorAlertController, animated: true, completion: nil)
+        UIApplication.sharedApplication().endIgnoringInteractionEvents()
     }
     
 // Collection View DataSource and Delegate
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        self.selectedMormon = Model.sharedInstance().items[indexPath.row]
+        self.selectedMormon = self.mormonManager.items[indexPath.row]
         performSegueWithIdentifier("showDetailSegue", sender: nil)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Model.sharedInstance().items.count
+        return self.mormonManager.items.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("imageCell", forIndexPath: indexPath) as! ImageCollectionViewCell
-        if Model.sharedInstance().items.count > 0 {
-            let object = Model.sharedInstance().items[indexPath.row]
+        if self.mormonManager.items.count > 0 {
+            let object = self.mormonManager.items[indexPath.row]
             
             object.loadCoverPhoto { image in
                 dispatch_async(dispatch_get_main_queue()) {
-                cell.imgView.image = image
+                    cell.imgView.image = image
                 }
             }
         }
         return cell
     }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        if (scrollView.contentOffset.y == scrollView.contentSize.height - scrollView.frame.size.height) {
+            self.mormonManager.continueScrolling()
+           print("reached end of content : scroll view did scroll called")
+        }
+    }
 
-// Side Bar Menu
+// User Interface
+    
+    func customizeNavBar() {
+        let imgView = UIImageView()
+        imgView.image = UIImage(named: "logo")
+        imgView.contentMode = .ScaleAspectFill
+        self.navigationItem.titleView = imgView
+    }
     
     func setUpRevealController() {
         if self.revealViewController() != nil {

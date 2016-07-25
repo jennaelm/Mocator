@@ -20,6 +20,7 @@ class Mormon : NSObject {
     var about : String?
     var fbID : String!
     weak var database : CKDatabase!
+    var friends : [String]?
     
     var serverID : String
     
@@ -35,6 +36,7 @@ class Mormon : NSObject {
         self.mormonUserID = record.objectForKey("UserID") as! String
         self.about = record.objectForKey("About") as! String?
         self.fbID = record.objectForKey("FbID") as! String
+        self.friends = record.objectForKey("FriendList") as! [String]?
     }
     
     func loadCoverPhoto(completion:(photo: UIImage!) -> ()) {
@@ -68,7 +70,7 @@ class Mormon : NSObject {
     }
     
     func mormonDescription() -> String {
-        return self.name + " ID: " + self.serverID
+        return self.name + "ID" + self.serverID
     }
 
 }

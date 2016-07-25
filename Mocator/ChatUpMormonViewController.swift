@@ -9,8 +9,11 @@
 import UIKit
 import CoreData
 
-class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
+class ChatUpMormonViewController: JSQMessagesViewController, MessageHandlerDelegate {
 
+    let messageHandler = MessageHandler()
+    let mormonManager = MormonManager()
+    
     var messages = [JSQMessage]()
     var outgoingBubbleImageView : JSQMessagesBubbleImage!
     var incomingBubbleImageView : JSQMessagesBubbleImage!
@@ -19,22 +22,33 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
     var allSentMessages = [MessagePlainObject]()
     var catText : Bool?
     var chatBuddyName : String?
-    
-    let model : Model = Model.sharedInstance()
     var mormonChatBuddyID : String?
+    var meID : String?
+    var loadingIndicator : MocatingIndicator!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Go be free
+    
+        self.meID = NSUserDefaults.standardUserDefaults().stringForKey("id")
         
-        model.delegate = self
-        model.downloadedMessages = []
+        messageHandler.delegate = self
+        messageHandler.downloadedMessages = []
         self.messages = []
-        
+
         if self.mormonChatBuddyID == nil {
             self.mormonChatBuddyID = self.mormonChatBuddy!.mormonUserID
         }
+        
+        dispatch_async(dispatch_get_main_queue(),{
+            self.loadingIndicator = MocatingIndicator(title: "Loading...", center: self.view.center)
+            let loView = self.loadingIndicator.getViewActivityIndicator()
+            self.view.addSubview(loView)
+            self.view.bringSubviewToFront(loView)
+            self.loadingIndicator.startAnimating()
+            self.getTheMessages()
+        })
         
         title = self.senderDisplayName
   
@@ -42,8 +56,7 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
         collectionView!.collectionViewLayout.incomingAvatarViewSize = CGSizeZero
         collectionView!.collectionViewLayout.outgoingAvatarViewSize = CGSizeZero
         
-        model.downloadMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: senderId)
-  
+       
     }
     
     private func setupBubbles() {
@@ -52,40 +65,51 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
         incomingBubbleImageView = factory.incomingMessagesBubbleImageWithColor(UIColor.darkGrayColor())
     }
     
+// Messages
+    
     func addMessage(id: String, text: String) {
         let addedMessage = JSQMessage(senderId: id, displayName: "", text: text)
         self.messages.append(addedMessage)
-        print("messages : \(self.messages)")
     }
     
-// Model Delegate
+    func getTheMessages() {
+        self.messageHandler.downloadSentMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: self.meID!, completionClosure: { (success) in
+            self.messageHandler.downloadReceivedMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: self.meID!,
+                completionClosure: { (success) in
+                    self.messagesDownloaded()
+            })
+        })
+    }
     
-    func modelUpdated() {
-        if model.downloadedMessages.count > 0 {
-            for msg in model.downloadedMessages {
+    func messagesDownloaded() {
+        messageHandler.downloadedMessages.sortInPlace({ $0.date.compare($1.date) == NSComparisonResult.OrderedAscending })
+            
+        if messageHandler.downloadedMessages.count > 0 {
+            for msg in messageHandler.downloadedMessages {
                 addMessage(msg.senderID, text: msg.value)
             }
             
             if self.catText == true {
-               meowMeowMeow()
+                self.meowMeowMeow()
             }
-            
-            self.finishReceivingMessageAnimated(true)
+
+            dispatch_async(dispatch_get_main_queue(),{
+                self.finishReceivingMessageAnimated(true)
+                self.loadingIndicator.stopAnimating()
+        })
+
         } else {
-            print("no downloaded messages")
+            dispatch_async(dispatch_get_main_queue(), {
+                self.loadingIndicator.stopAnimating()
+            })
         }
     }
     
-    func errorUpdating(error: NSError) {
-        print("error updating: \(error.localizedDescription)")
-        // labor of love error handling---retry (?)
-    }
-    
-    func newMessages() {
-        model.downloadedMessages = []
+    func newMessageReceived() {
         self.messages = []
-        model.downloadMessagesFromCloudKit(self.mormonChatBuddyID!, senderID: senderId)
-        model.updateChatBuddy(self.mormonChatBuddyID!)
+        self.collectionView.reloadData()
+        getTheMessages()
+        self.messageHandler.updateChatBuddyLastMessage(self.mormonChatBuddyID!)
     }
 
 // JSQMessages Delegate
@@ -114,10 +138,9 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
     }
     
     override func didPressSendButton(button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: NSDate!) {
-        let message = JSQMessage(senderId: self.senderId, displayName: self.senderDisplayName, text: text)
-        self.messages += [message]
-        model.sendMessage(self.mormonChatBuddyID!, senderID: senderId!, text: text, date: date)
-        model.updateChatBuddy(self.mormonChatBuddyID!)
+        addMessage(senderId, text: text)
+        messageHandler.sendMessage(self.mormonChatBuddyID!, senderID: senderId!, text: text, date: date)
+        messageHandler.updateChatBuddyLastMessage(self.mormonChatBuddyID!)
         self.finishSendingMessageAnimated(true)
     }
     
@@ -125,16 +148,27 @@ class ChatUpMormonViewController: JSQMessagesViewController, ModelDelegate {
         self.dismissViewControllerAnimated(true, completion: nil)
     }
 
-// Meow Meow Meow
+// Meow Meow
     
     func meowMeowMeow() {
-        let date = NSDate()
-        let text = "😻I😻L😻O😻V😻E😻Y😻O😻U😻"
-        addMessage(senderId, text: text)
-        model.sendMessage(self.mormonChatBuddyID!, senderID: senderId!, text: text, date: date)
-        model.updateChatBuddy(self.mormonChatBuddyID!)
         self.catText = false
+        let date = NSDate()
+        let text = "I LOVE YOU 😻😻"
+        addMessage(self.meID!, text: text)
+        messageHandler.sendMessage(self.mormonChatBuddyID!, senderID: senderId!, text: text, date: date)
+        messageHandler.updateChatBuddyLastMessage(self.mormonChatBuddyID!)
+        self.finishSendingMessageAnimated(true)
     }
 
+// Button Taps
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "toProfileSegue" {
+            let profileViewController = segue.destinationViewController as! DetailMormonViewController
+                profileViewController.detailMormon = self.mormonChatBuddy
+                profileViewController.buddyUserID = self.mormonChatBuddyID
+        }
+    }
+    
 
 }
